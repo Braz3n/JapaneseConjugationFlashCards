@@ -207,8 +207,8 @@ class QuizDialog(QDialog):
         self.tense_checkboxes = [tense_present, tense_past]
 
         polarity_box_layout = QVBoxLayout()
-        polarity_positive = QCheckBox("Present")
-        polarity_negative = QCheckBox("Past")
+        polarity_positive = QCheckBox("Positive")
+        polarity_negative = QCheckBox("Negative")
         polarity_box_layout.addWidget(polarity_positive)
         polarity_box_layout.addWidget(polarity_negative)
         polarity_box = QGroupBox("Polarity")
