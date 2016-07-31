@@ -17,6 +17,7 @@ python3 gui.py
 Verbs and Adjectives are stored in their own respective folders in the root directory of the project. Groupings of words are delineated by separate files.
 
 Each word is entered on its own line and consists of at least three fields (comma-separated):
+
 1. The Dictionary Form of the word in Hiragana or Katakana. Kanji works too as long as the word isn't irregular (For example, '行く' will not conjugate correctly yet).
 2. The Verb or Adjective Class. Either 'う', 'る', or 'irregular' for verbs, and 'い' or 'な' for adjectives.
 3. The definition of the verb or adjective, in English.
