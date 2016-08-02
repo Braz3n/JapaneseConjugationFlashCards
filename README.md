@@ -26,7 +26,6 @@ Each word is entered on its own line and consists of at least three fields (comm
 Lines that start with '#' or are empty are ignored.
 
 ## To Do
-- Add support for Past Tense of Short Form verbs and adjectives.
 - Rename variables and function names for consistency.
 - Add support for Kanji characters in verb and adjectives.
 - Add support for Romaji when answering a question.
