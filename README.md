@@ -33,5 +33,4 @@ Instead of answering with Kana characters, Rōmaji can also be used if the Romka
 
 ## To Do
 - Rename variables and function names for consistency.
-- Add support for Kanji characters in verb and adjectives.
 - Use a better storage method for storing verbs (XML or JSON?).
