@@ -23,6 +23,13 @@ from PyQt5.QtGui import QIcon
 from Verb import *
 from Adjective import *
 
+try:
+    # Attempt to load the Kana to Romaji library.
+    from romkan import to_roma
+    ROMAJI = True
+except:
+    ROMAJI = False
+
 verbs_dir = "./verbs/"
 adjectives_dir = "./adjectives/"
 
@@ -84,9 +91,6 @@ class QuizDialog(QDialog):
 
         self.setGeometry(300, 300, -1, -1)  # x, y, w, h
         self.setWindowTitle("Settings")
-        # self.show()
-        # self.setWindowModality(Qt.ApplicationModal)
-        # self.exec_()
 
     def initSettings(self):
         # Update the Verb Checkbox States
@@ -262,11 +266,7 @@ class QuizWidget(QWidget):
     def __init__(self, parent):
         super().__init__(parent)
 
-        # self.word_list = load_word_lists()
-
         self.initUI()
-        # self.parentWidget().sendSettingsToQuiz()
-        # self.displayQuestion()
 
     def initUI(self):
         self.question = QLabel('')
@@ -293,18 +293,11 @@ class QuizWidget(QWidget):
 
         self.setLayout(grid)
 
-        # self.setGeometry(300, 300, 500, -1)  # x, y, w, h
-        # self.setWindowTitle("Japanese Flash Cards")
-        # self.show()
-
     def updateQuizState(self, quiz_state):
         self.quiz_state = quiz_state
         self.displayQuestion()
 
     def displayQuestion(self):
-        # self.question_string, self.answer_string = random_question_data(self.word_list,
-        #                     form_list=["short", "te", "long"], tense_list=["present"], polarity_list=["negative", "affirmative"])
-        # self.question.setText(self.question_string)
         self.randomQuestion()
         self.question.setText(self.question_string)
 
@@ -334,7 +327,7 @@ class QuizWidget(QWidget):
         self.answer_string = word.conjugate(tense, polarity, form)
 
     def submitAnswer(self):
-        if self.answer.text() == self.answer_string:
+        if self.answer.text() == self.answer_string or (ROMAJI and self.answer.text() == to_roma(self.answer_string)):
             self.response.setText("Correct")
         else:
             self.response.setText("Incorrect. The answer was \"{0}\".".format(self.answer_string))
@@ -347,7 +340,7 @@ class QuizWidget(QWidget):
 class QuizWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        # self.initUI()
+
         self.initSettings()
         self.initUI()
 
@@ -385,8 +378,6 @@ class QuizWindow(QMainWindow):
         tense = [True, True]
         polarity = [True, True]
         self.settingsState = SettingsState(verb, adj, form, tense, polarity)
-        # Send the initial settings to the central quiz widget.
-        # self.sendSettingsToQuiz()
 
     def sendSettingsToQuiz(self):
         # Convert SettingsState to QuizState and send to the central widget.
@@ -432,8 +423,6 @@ class QuizWindow(QMainWindow):
         if settingsDialog.exec_():
             self.settingsState = settingsDialog.getSettings()
             self.sendSettingsToQuiz()
-
-
 
 
 if __name__ == '__main__':

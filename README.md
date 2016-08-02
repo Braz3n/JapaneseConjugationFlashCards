@@ -5,9 +5,12 @@ All of the terminology used is derived from [Genki Volume One](http://genki.japa
 
 Note that the tool is currently missing the ability to conjugate the Past Tense of the Short Form of Adjectives and Verbs, as well as anything more advanced than has been taught in Lesson 8. Furthermore, the first commit is simply the state of the code from the moment it started working.
 
-## Running the Code
-The only external dependency is PyQt5.
+## External Dependencies
+The only external dependency required to run the project is PyQt5.
 
+If the [Romkan](https://pypi.python.org/pypi/romkan) Python library is installed, questions can also be answered in Rōmaji, but this is not necessary for the project to run.
+
+## Running the Code
 To run the project, simply call:
 ```
 python3 gui.py
@@ -25,8 +28,10 @@ Each word is entered on its own line and consists of at least three fields (comm
 
 Lines that start with '#' or are empty are ignored.
 
+## Rōmaji Support
+Instead of answering with Kana characters, Rōmaji can also be used if the Romkan library is installed (See External Dependencies). To verify the answer, the generated conjugation is converted to Rōmaji using the Hepburn Romanization system.
+
 ## To Do
 - Rename variables and function names for consistency.
 - Add support for Kanji characters in verb and adjectives.
-- Add support for Romaji when answering a question.
 - Use a better storage method for storing verbs (XML or JSON?).
