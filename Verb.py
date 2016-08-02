@@ -22,7 +22,7 @@ class Verb():
     def conjugate(self, tense, polarity, form):
         """
         tense: Either "past" or "present" Tense.
-        polarity: Either "positive" or "negative".
+        polarity: Either "affirmative" or "negative".
         form: Either "polite" or "te" form.
         """
         if form == "te":
@@ -66,17 +66,17 @@ class Verb():
             raise ValueError("Unexpected Verb Ending for て Form: {0}: {1}".format(self.verb, self.english))
 
     def __polite_form(self, tense, polarity):
-        if tense == "present" and polarity == "positive":
+        if tense == "present" and polarity == "affirmative":
             return self.__verb_stem() + "ます"
         elif tense == "present" and polarity == "negative":
             return self.__verb_stem() + "ません"
-        elif tense == "past" and polarity == "positive":
+        elif tense == "past" and polarity == "affirmative":
             return self.__verb_stem() + "ました"
         elif tense == "past" and polarity == "negative":
             return self.__verb_stem() + "ませんでした"
 
     def __short_form(self, tense, polarity):
-        if tense == "present" and polarity == "positive":
+        if tense == "present" and polarity == "affirmative":
             return self.verb
         elif tense == "present" and polarity == "negative":
             if self.conjugate_as == 'ある' and self.verb_class == 'う':
@@ -94,8 +94,14 @@ class Verb():
                     raise ValueError("Unexpected Irregular Verb: {0}: {1}".format(self.verb, self.english))
             else:
                 raise ValueError("Unexpected Verb Class: {0}: {1}".format(self.verb, self.english))
-        else:
-            raise NotImplementedError("Wait until next week!")
+        elif tense == "past" and polarity == "affirmative":
+            temp = self.__te_form()
+            if temp[-1] == "て":
+                return temp[-1] + "た"
+            else:
+                return temp[-1] + "だ"
+        elif tense == "past" and polarity == "negative":
+            return self.__short_form("present", "negative")[:-1] + "かった"
 
     def __verb_stem(self):
         if self.verb_class == 'う':

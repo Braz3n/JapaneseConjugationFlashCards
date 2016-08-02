@@ -35,7 +35,7 @@ class SettingsState(object):
         self.polarity_state = polarity_state
 
 class QuizState(object):
-    def __init__(self, verb_list=[], adjective_list=[], form_list=["short", "te", "long"], tense_list=["present"], polarity_list=["negative", "positive"]):
+    def __init__(self, verb_list=[], adjective_list=[], form_list=["short", "te", "long"], tense_list=["present"], polarity_list=["negative", "affirmative"]):
         self.word_list = []
         self.verb_list = verb_list
         self.adj_list = adjective_list
@@ -207,7 +207,7 @@ class QuizDialog(QDialog):
         self.tense_checkboxes = [tense_present, tense_past]
 
         polarity_box_layout = QVBoxLayout()
-        polarity_positive = QCheckBox("Positive")
+        polarity_positive = QCheckBox("Affirmative")
         polarity_negative = QCheckBox("Negative")
         polarity_box_layout.addWidget(polarity_positive)
         polarity_box_layout.addWidget(polarity_negative)
@@ -303,7 +303,7 @@ class QuizWidget(QWidget):
 
     def displayQuestion(self):
         # self.question_string, self.answer_string = random_question_data(self.word_list,
-        #                     form_list=["short", "te", "long"], tense_list=["present"], polarity_list=["negative", "positive"])
+        #                     form_list=["short", "te", "long"], tense_list=["present"], polarity_list=["negative", "affirmative"])
         # self.question.setText(self.question_string)
         self.randomQuestion()
         self.question.setText(self.question_string)
@@ -419,7 +419,7 @@ class QuizWindow(QMainWindow):
             tenseList.append("past")
 
         if self.settingsState.polarity_state[0]:
-            polarityList.append("positive")
+            polarityList.append("affirmative")
         if self.settingsState.polarity_state[1]:
             polarityList.append("negative")
 

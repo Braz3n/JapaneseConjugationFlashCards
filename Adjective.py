@@ -21,7 +21,7 @@ class Adjective():
     def conjugate(self, tense, polarity, form):
         """
         tense: Either "past" or "present" Tense.
-        polarity: Either "positive" or "negative".
+        polarity: Either "affirmative" or "negative".
         form: Either "long" or "te" form.
         """
         if form == "te":
@@ -51,39 +51,41 @@ class Adjective():
 
     def __long_form(self, tense, polarity):
         if self.adj_class == "い":
-            if tense == "present" and polarity == "positive":
+            if tense == "present" and polarity == "affirmative":
                 return self.conjugate_as + "です"
             elif tense == "present" and polarity == "negative":
                 return self.__adj_stem() + "くないです"
-            elif tense == "past" and polarity == "positive":
-                return self.__adj_stem() + "かったでした"
+            elif tense == "past" and polarity == "affirmative":
+                return self.__adj_stem() + "かったです"
             elif tense == "past" and polarity == "negative":
-                return self.__adj_stem() + "くなかったでした"
+                return self.__adj_stem() + "くなかったです"
         elif self.adj_class == "な":
-            if tense == "present" and polarity == "positive":
+            if tense == "present" and polarity == "affirmative":
                 return self.conjugate_as + "です"
             elif tense == "present" and polarity == "negative":
                 return self.__adj_stem() + "じゃないです"
-            elif tense == "past" and polarity == "positive":
+            elif tense == "past" and polarity == "affirmative":
                 return self.__adj_stem() + "でした"
             elif tense == "past" and polarity == "negative":
-                return self.__adj_stem() + "じゃなかったでした"
+                return self.__adj_stem() + "じゃなかったです"
 
     def __short_form(self, tense, polarity):
         if self.adj_class == "い":
-            if tense == "present" and polarity == "positive":
+            if tense == "present" and polarity == "affirmative":
                 return self.conjugate_as
             elif tense == "present" and polarity == "negative":
                 return self.__adj_stem() + "くない"
-            else:
-                raise NotImplementedError("Wait Till Next Week!")
+            elif tense == "past":
+                return self.__long_form(tense, polarity)[:-2]
         elif self.adj_class == "な":
-            if tense == "present" and polarity == "positive":
+            if tense == "present" and polarity == "affirmative":
                 return self.conjugate_as + "だ"
             elif tense == "present" and polarity == "negative":
                 return self.__adj_stem() + "じゃない"
-            else:
-                raise NotImplementedError("Wait Till Next Week!")
+            elif tense == "past" and polarity == "affirmative":
+                return self.__long_form(tense, polarity)[:-3] + "だった"
+            elif tense == "past" and polarity == "negative":
+                return self.__long_form(tense, polarity)[:-2]
 
     def __adj_stem(self):
         if self.conjugate_as == "いい":
