@@ -317,7 +317,7 @@ class QuizWidget(QWidget):
         if self.answer.text() == self.answer_string or (ROMAJI and self.answer.text() == to_roma(self.answer_string)):
             self.response.setText("Correct")
         else:
-            self.response.setText("Incorrect. The answer was \"{0}\".".format(self.answer_string))
+            self.response.setText("Incorrect. The answer was \"{0}\", you answered \"{1}\".".format(self.answer_string, self.answer.text()))
 
         self.answer.setText("")
 

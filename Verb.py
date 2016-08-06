@@ -97,9 +97,9 @@ class Verb():
         elif tense == "past" and polarity == "affirmative":
             temp = self.__te_form()
             if temp[-1] == "て":
-                return temp[-1] + "た"
+                return temp[:-1] + "た"
             else:
-                return temp[-1] + "だ"
+                return temp[:-1] + "だ"
         elif tense == "past" and polarity == "negative":
             return self.__short_form("present", "negative")[:-1] + "かった"
 
