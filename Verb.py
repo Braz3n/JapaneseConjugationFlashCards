@@ -112,7 +112,7 @@ class Verb():
             if self.conjugate_as[-2:] == 'する':
                 verb_stem = self.conjugate_as[:-2] + 'し'
             elif self.conjugate_as[-2:] == 'くる':
-                verb_stem = 'き'
+                verb_stem = self.conjugate_as[:-2] + 'き'
             else:
                 raise ValueError("Unknown Irregular Verb: {0}: {1}".format(self.verb, self.english))
         return verb_stem
