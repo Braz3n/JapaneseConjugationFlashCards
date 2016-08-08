@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import sys, random, os, os.path, copy
+import sys, random, os, os.path, copy, re
 from PyQt5.QtWidgets import (QWidget, QLabel, QLineEdit, QMainWindow, QAction,
     QTextEdit, QGridLayout, QApplication, QPushButton, QMenuBar, QDialog, qApp,
     QCheckBox, QGroupBox, QVBoxLayout, QHBoxLayout, QSpacerItem, QMessageBox)
@@ -12,7 +12,7 @@ from Adjective import *
 
 try:
     # Attempt to load the Kana to Romaji library.
-    from romkan import to_roma
+    from romkan import to_hiragana, to_katakana
     ROMAJI = True
 except:
     ROMAJI = False
@@ -262,6 +262,8 @@ class QuizWidget(QWidget):
         submit.clicked.connect(self.submitAnswer)
         self.answer = QLineEdit()
         self.answer.returnPressed.connect(self.submitAnswer)
+        if ROMAJI:
+            self.answer.textEdited.connect(self.__convertToKana)
         self.response = QLabel("")
         self.response.setAlignment(Qt.AlignHCenter)
 
@@ -279,6 +281,20 @@ class QuizWidget(QWidget):
         grid.addWidget(self.response, 3, 1, 1, 2)
 
         self.setLayout(grid)
+
+    def __convertToKatakana(self, match):
+        if match.group() == "N":
+            return "N"
+        return to_katakana(match.group()).upper()
+
+    def __convertToHiragana(self, match):
+        if match.group() == "n":
+            return "n"
+        return to_hiragana(match.group())
+
+    def __convertToKana(self):
+        self.answer.setText(re.sub('[A-Z]+', self.__convertToKatakana, self.answer.text()))
+        self.answer.setText(re.sub('[a-z]+', self.__convertToHiragana, self.answer.text()))
 
     def updateQuizState(self, quiz_state):
         self.quiz_state = quiz_state
@@ -314,7 +330,7 @@ class QuizWidget(QWidget):
         self.answer_string = word.conjugate(tense, polarity, form)
 
     def submitAnswer(self):
-        if self.answer.text() == self.answer_string or (ROMAJI and self.answer.text() == to_roma(self.answer_string)):
+        if self.answer.text() == self.answer_string:
             self.response.setText("Correct")
         else:
             self.response.setText("Incorrect. The answer was \"{0}\", you answered \"{1}\".".format(self.answer_string, self.answer.text()))
