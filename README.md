@@ -34,3 +34,5 @@ Kana characters can also be entered using an English keyboard if the Romkan libr
 ## To Do
 - Rename variables and function names for consistency.
 - Use a better storage method for storing verbs (XML or JSON?).
+- Filtering based on verb/adjective class.
+- Implement a way of stopping cards from showing up too frequently.
