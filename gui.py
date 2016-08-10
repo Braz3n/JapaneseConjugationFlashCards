@@ -151,8 +151,14 @@ class QuizDialog(QDialog):
         ####################
         options_layout = QGridLayout()
 
-        verb_lists = [f for f in os.listdir(verbs_dir) if os.path.isfile(os.path.join(verbs_dir, f)) and f[0] != '.']
-        adj_lists = [f for f in os.listdir(adjectives_dir) if os.path.isfile(os.path.join(adjectives_dir, f)) and f[0] != '.']
+        if os.path.isdir(verbs_dir):
+            verb_lists = [f for f in os.listdir(verbs_dir) if os.path.isfile(os.path.join(verbs_dir, f)) and f[0] != '.']
+        else:
+            verb_lists = []
+        if os.path.isdir(adjectives_dir):
+            adj_lists = [f for f in os.listdir(adjectives_dir) if os.path.isfile(os.path.join(adjectives_dir, f)) and f[0] != '.']
+        else:
+            adj_lists = []
 
         self.verb_checkboxes = []
         self.adj_checkboxes = []
@@ -367,7 +373,7 @@ class QuizWindow(QMainWindow):
         exitAction.triggered.connect(qApp.exit)
 
         menubar = self.menuBar()
-        menubar.setNativeMenuBar(False)  # TODO Check this works outside of OSX.
+        menubar.setNativeMenuBar(False)
         fileMenu = menubar.addMenu('&File')
         fileMenu.addAction(settingsAction)
         fileMenu.addAction(exitAction)
@@ -383,8 +389,14 @@ class QuizWindow(QMainWindow):
     def initSettings(self):
         # When starting the application, just assume we want to use all of the
         # word lists available.
-        verb = [True for f in os.listdir(verbs_dir) if os.path.isfile(os.path.join(verbs_dir, f)) and f[0] != '.']
-        adj = [True for f in os.listdir(adjectives_dir) if os.path.isfile(os.path.join(adjectives_dir, f)) and f[0] != '.']
+        if os.path.isdir(verbs_dir):
+            verb = [True for f in os.listdir(verbs_dir) if os.path.isfile(os.path.join(verbs_dir, f)) and f[0] != '.']
+        else:
+            verb = []
+        if os.path.isdir(adjectives_dir):
+            adj = [True for f in os.listdir(adjectives_dir) if os.path.isfile(os.path.join(adjectives_dir, f)) and f[0] != '.']
+        else:
+            adj = []
         form = [True, True, True]  # Long, Short, Te
         tense = [True, True]
         polarity = [True, True]
@@ -398,12 +410,18 @@ class QuizWindow(QMainWindow):
         tenseList = []
         polarityList = []
 
-        tempList = [f for f in os.listdir(verbs_dir) if os.path.isfile(os.path.join(verbs_dir, f)) and f[0] != '.']
+        if os.path.isdir(verbs_dir):
+            tempList = [f for f in os.listdir(verbs_dir) if os.path.isfile(os.path.join(verbs_dir, f)) and f[0] != '.']
+        else:
+            tempList = []
         for i in range(len(self.settingsState.verb_state)):
             if self.settingsState.verb_state[i]:
                 verbList.append(tempList[i])
 
-        tempList = [f for f in os.listdir(adjectives_dir) if os.path.isfile(os.path.join(adjectives_dir, f)) and f[0] != '.']
+        if os.path.isdir(adjectives_dir):
+            tempList = [f for f in os.listdir(adjectives_dir) if os.path.isfile(os.path.join(adjectives_dir, f)) and f[0] != '.']
+        else:
+            tempList = []
         for i in range(len(self.settingsState.adj_state)):
             if self.settingsState.adj_state[i]:
                 adjList.append(tempList[i])
@@ -434,6 +452,7 @@ class QuizWindow(QMainWindow):
         if settingsDialog.exec_():
             self.settingsState = settingsDialog.getSettings()
             self.sendSettingsToQuiz()
+
 
 
 if __name__ == '__main__':
