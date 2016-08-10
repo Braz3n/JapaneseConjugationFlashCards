@@ -20,6 +20,14 @@ except:
 verbs_dir = "./verbs/"
 adjectives_dir = "./adjectives/"
 
+if getattr(sys, 'frozen', False):
+    application_path = os.path.dirname(sys.executable)
+elif __file__:
+    application_path = os.path.dirname(__file__)
+
+verbs_dir = os.path.join(application_path, verbs_dir)
+adjectives_dir = os.path.join(application_path, adjectives_dir)
+
 class SettingsState(object):
     def __init__(self, verb_state, adj_state, form_state, tense_state, polarity_state):
         self.verb_state = verb_state
@@ -40,13 +48,13 @@ class QuizState(object):
     def populateWordList(self):
         self.word_list = []
         for file_name in self.verb_list:
-            self.load_word_list(os.path.join("./verbs/", file_name), "verb")
+            self.load_word_list(os.path.join(verbs_dir, file_name), "verb")
 
         for file_name in self.adj_list:
-            self.load_word_list(os.path.join("./adjectives/", file_name), "adjective")
+            self.load_word_list(os.path.join(adjectives_dir, file_name), "adjective")
 
     def load_word_list(self, file_name, word_type):
-        raw_file = open(file_name, 'r')
+        raw_file = open(file_name, 'r', encoding='utf-8')
         raw_list = raw_file.readlines()
         for line in raw_list:
             line = line.strip()
