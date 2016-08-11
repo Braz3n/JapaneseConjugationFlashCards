@@ -453,9 +453,22 @@ class QuizWindow(QMainWindow):
             self.settingsState = settingsDialog.getSettings()
             self.sendSettingsToQuiz()
 
-
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = QuizWindow()
-    sys.exit(app.exec_())
+
+    if (os.path.isdir(verbs_dir) and len([f for f in os.listdir(verbs_dir) if os.path.isfile(os.path.join(verbs_dir, f)) and f[0] != '.']) > 0) or (os.path.isdir(adjectives_dir) and len([f for f in os.listdir(adjectives_dir) if os.path.isfile(os.path.join(adjectives_dir, f)) and f[0] != '.']) > 0):
+        # Word list directories exist and have have word lists present.
+        ex = QuizWindow()
+        sys.exit(app.exec_())
+    elif not os.path.isdir(verbs_dir) and not os.path.isdir(adjectives_dir):
+        # Neither of the word list directories exist.
+        warning = QMessageBox(None)
+        warning.setText("Word List Directories Missing")
+        warning.setInformativeText("Please create the \"verbs\" and/or \"adjectives\" directories in the same directory as the application.")
+        warning.exec_()
+    else:
+        # At least one of the directories exist but there are no word lists present.
+        warning = QMessageBox(None)
+        warning.setText("Word Lists Missing")
+        warning.setInformativeText("Please place at least one word list in either of the \"verbs\" or \"adjectives\" directories.")
+        warning.exec_()
