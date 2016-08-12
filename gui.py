@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import sys, random, os, os.path, copy, re
+import sys, random, os, os.path, copy, re, json
 from PyQt5.QtWidgets import (QWidget, QLabel, QLineEdit, QMainWindow, QAction,
     QTextEdit, QGridLayout, QApplication, QPushButton, QMenuBar, QDialog, qApp,
     QCheckBox, QGroupBox, QVBoxLayout, QHBoxLayout, QSpacerItem, QMessageBox)
@@ -48,32 +48,31 @@ class QuizState(object):
     def populateWordList(self):
         self.word_list = []
         for file_name in self.verb_list:
-            self.load_word_list(os.path.join(verbs_dir, file_name), "verb")
+            self.load_word_list_json(os.path.join(verbs_dir, file_name))
 
         for file_name in self.adj_list:
-            self.load_word_list(os.path.join(adjectives_dir, file_name), "adjective")
+            self.load_word_list_json(os.path.join(adjectives_dir, file_name))
 
-    def load_word_list(self, file_name, word_type):
+    def load_word_list_json(self, file_name):
         raw_file = open(file_name, 'r', encoding='utf-8')
-        raw_list = raw_file.readlines()
-        for line in raw_list:
-            line = line.strip()
-            if len(line) < 3 or line[0] == "#":
-                continue
-            string = line.split(',')
-            if word_type == "verb":
-                if len(string) == 4:
-                    word = Verb(string[0], string[1], string[2], conjugate_as=string[3])
+        json_data = json.load(raw_file)
+
+        if json_data["ListType"] != "Verb" and json_data["ListType"] != "Adjective":
+            raise ValueError("Unrecognized Word Type: \"{0}\"".format(json_data["ListType"]))
+
+        for word in json_data["WordList"]:
+            if "Verb" in word:
+                if "ConjugateAs" in word:
+                    word_obj = Verb(word["Verb"], word["Class"], word["Definition"], word["ConjugateAs"])
                 else:
-                    word = Verb(string[0], string[1], string[2])
-            elif word_type == "adjective":
-                if len(string) == 4:
-                    word = Adjective(string[0], string[1], string[2], conjugate_as=string[3])
+                    word_obj = Verb(word["Verb"], word["Class"], word["Definition"])
+            elif "Adjective" in word:
+                if "ConjugateAs" in word:
+                    word_obj = Adjective(word["Adjective"], word["Class"], word["Definition"], word["ConjugateAs"])
                 else:
-                    word = Adjective(string[0], string[1], string[2])
-            else:
-                raise ValueError("Unrecognized word type: \"{0}\"".format(word_type))
-            self.word_list.append(word)
+                    word_obj = Adjective(word["Adjective"], word["Class"], word["Definition"])
+
+            self.word_list.append(word_obj)
 
 class QuizDialog(QDialog):
     def __init__(self, settings_state):
@@ -152,11 +151,11 @@ class QuizDialog(QDialog):
         options_layout = QGridLayout()
 
         if os.path.isdir(verbs_dir):
-            verb_lists = [f for f in os.listdir(verbs_dir) if os.path.isfile(os.path.join(verbs_dir, f)) and f[0] != '.']
+            verb_lists = [f for f in os.listdir(verbs_dir) if os.path.isfile(os.path.join(verbs_dir, f)) and f[-5:] == '.json']
         else:
             verb_lists = []
         if os.path.isdir(adjectives_dir):
-            adj_lists = [f for f in os.listdir(adjectives_dir) if os.path.isfile(os.path.join(adjectives_dir, f)) and f[0] != '.']
+            adj_lists = [f for f in os.listdir(adjectives_dir) if os.path.isfile(os.path.join(adjectives_dir, f)) and f[-5:] == '.json']
         else:
             adj_lists = []
 
@@ -390,11 +389,11 @@ class QuizWindow(QMainWindow):
         # When starting the application, just assume we want to use all of the
         # word lists available.
         if os.path.isdir(verbs_dir):
-            verb = [True for f in os.listdir(verbs_dir) if os.path.isfile(os.path.join(verbs_dir, f)) and f[0] != '.']
+            verb = [True for f in os.listdir(verbs_dir) if os.path.isfile(os.path.join(verbs_dir, f)) and f[-5:] == '.json']
         else:
             verb = []
         if os.path.isdir(adjectives_dir):
-            adj = [True for f in os.listdir(adjectives_dir) if os.path.isfile(os.path.join(adjectives_dir, f)) and f[0] != '.']
+            adj = [True for f in os.listdir(adjectives_dir) if os.path.isfile(os.path.join(adjectives_dir, f)) and f[-5:] == '.json']
         else:
             adj = []
         form = [True, True, True]  # Long, Short, Te
@@ -411,7 +410,7 @@ class QuizWindow(QMainWindow):
         polarityList = []
 
         if os.path.isdir(verbs_dir):
-            tempList = [f for f in os.listdir(verbs_dir) if os.path.isfile(os.path.join(verbs_dir, f)) and f[0] != '.']
+            tempList = [f for f in os.listdir(verbs_dir) if os.path.isfile(os.path.join(verbs_dir, f)) and f[-5:] == '.json']
         else:
             tempList = []
         for i in range(len(self.settingsState.verb_state)):
@@ -419,7 +418,7 @@ class QuizWindow(QMainWindow):
                 verbList.append(tempList[i])
 
         if os.path.isdir(adjectives_dir):
-            tempList = [f for f in os.listdir(adjectives_dir) if os.path.isfile(os.path.join(adjectives_dir, f)) and f[0] != '.']
+            tempList = [f for f in os.listdir(adjectives_dir) if os.path.isfile(os.path.join(adjectives_dir, f)) and f[-5:] == '.json']
         else:
             tempList = []
         for i in range(len(self.settingsState.adj_state)):
@@ -456,7 +455,7 @@ class QuizWindow(QMainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
-    if (os.path.isdir(verbs_dir) and len([f for f in os.listdir(verbs_dir) if os.path.isfile(os.path.join(verbs_dir, f)) and f[0] != '.']) > 0) or (os.path.isdir(adjectives_dir) and len([f for f in os.listdir(adjectives_dir) if os.path.isfile(os.path.join(adjectives_dir, f)) and f[0] != '.']) > 0):
+    if (os.path.isdir(verbs_dir) and len([f for f in os.listdir(verbs_dir) if os.path.isfile(os.path.join(verbs_dir, f)) and f[-5:] == '.json']) > 0) or (os.path.isdir(adjectives_dir) and len([f for f in os.listdir(adjectives_dir) if os.path.isfile(os.path.join(adjectives_dir, f)) and f[-5:] == '.json']) > 0):
         # Word list directories exist and have have word lists present.
         ex = QuizWindow()
         sys.exit(app.exec_())

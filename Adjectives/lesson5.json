@@ -1,0 +1,31 @@
+{
+    "ListType": "Adjective",
+    "Lesson": "Five",
+    "WordList": [
+        {"Adjective": "あたらしい", "Class": "い", "Definition": "New"},
+        {"Adjective": "あつい", "Class": "い", "Definition": "Hot"},
+        {"Adjective": "いそがしい", "Class": "い", "Definition": "Busy"},
+        {"Adjective": "おおきい", "Class": "い", "Definition": "Large"},
+        {"Adjective": "おもしろい", "Class": "い", "Definition": "Interesting/Funny"},
+        {"Adjective": "かっこいい", "Class": "い", "Definition": "Good-Looking", "ConjugateAs": "いい"},
+        {"Adjective": "こわい", "Class": "い", "Definition": "Scared"},
+        {"Adjective": "さむい", "Class": "い", "Definition": "Cold"},
+        {"Adjective": "たのしい", "Class": "い", "Definition": "Fun"},
+        {"Adjective": "ちいさい", "Class": "い", "Definition": "Small"},
+        {"Adjective": "つまらない", "Class": "い", "Definition": "Boring"},
+        {"Adjective": "ふるい", "Class": "い", "Definition": "Old"},
+        {"Adjective": "むずかしい", "Class": "い", "Definition": "Difficult"},
+        {"Adjective": "やさしい", "Class": "い", "Definition": "Easy"},
+        {"Adjective": "やすい", "Class": "い", "Definition": "Cheap"},
+
+        {"Adjective": "きらい", "Class": "な", "Definition": "To Dislike"},
+        {"Adjective": "きれい", "Class": "な", "Definition": "Clean/Beautiful"},
+        {"Adjective": "げんき", "Class": "な", "Definition": "Healthy/Energetic"},
+        {"Adjective": "しずか", "Class": "な", "Definition": "Quiet"},
+        {"Adjective": "だいきらい", "Class": "な", "Definition": "To Hate"},
+        {"Adjective": "だいすき", "Class": "な", "Definition": "To Love"},
+        {"Adjective": "にぎやか", "Class": "な", "Definition": "Lively"},
+        {"Adjective": "ひま", "Class": "な", "Definition": "Not Busy"}
+
+    ]
+}

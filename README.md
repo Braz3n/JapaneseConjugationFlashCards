@@ -3,7 +3,7 @@ Simple tool for conjugating Japanese verbs and adjectives.
 
 All of the terminology used is derived from [Genki Volume One](http://genki.japantimes.co.jp/index_en).
 
-Note that the tool is currently missing the ability to conjugate the Past Tense of the Short Form of Adjectives and Verbs, as well as anything more advanced than has been taught in Lesson 8. Furthermore, the first commit is simply the state of the code from the moment it started working.
+Note that the tool comes packaged with adjectives and verbs up to and including Lesson Nine.
 
 ## External Dependencies
 The only external dependency required to run the project is PyQt5.
@@ -17,22 +17,34 @@ python3 gui.py
 ```
 
 ## Verb and Adjective Data Structure.
-Verbs and Adjectives are stored in their own respective folders in the root directory of the project. Groupings of words are delineated by separate files.
+Verbs and Adjectives are stored in their own respective folders in the root directory of the project. The word lists are stored in .json files (JavaScript Object Notation) in the appropriate folder.
 
-Each word is entered on its own line and consists of at least three fields (comma-separated):
+Each Word List is contained in a separate file and contains the following attributes:
+1. ListType - Either "Verb" or "Adjective" as appropriate.
+2. Lesson - The Lesson Number for the Word List.
+3. WordList - An array containing the word definitions for the list.
 
-1. The Dictionary Form of the word in Hiragana or Katakana. Kanji works too as long as the Kanji isn't part of the conjugation (For example, '行く' and '来る' will not conjugate correctly) but will be incompatible if Rōmaji support is required.
-2. The Verb or Adjective Class. Either 'う', 'る', or 'irregular' for verbs, and 'い' or 'な' for adjectives.
-3. The definition of the verb or adjective, in English.
-4. For 行く compound verbs or compound いい adjectives only. This specifies how the word should be conjugated. For example, もっていく conjugates the same way as 行く, which conjugates irregularly for the Te Form but is otherwise considered to be an う verb. For もっていく, the naive Te conjugation would be もっていいて, instead of もっていって, hence why an additional field is used.
+Each Verb contains the following attributes:
+1. Verb - Contains the Kana form of the verb.
+2. Class - Either "う", "る", or "irregular" depending on the verb class.
+3. Definition - The definition of the verb in English.
+4. ConjugateAs - The second verb in a compound verb if that verb is especially irregular (See Below). This attribute is not required.
 
-Lines that start with '#' or are empty are ignored.
+Each Adjective contains the following attributes:
+1. Adjective - Contains the Kana form of the adjective.
+2. Class - Either "い" or "な" depending on the adjective class.
+3. Definition - The definition of the adjective in English.
+4. ConjugateAs - The second adjective in a compound adjective if that adjective is "いい" (See Below). This attribute is not required.
+
+### The ConjugateAs Attribute
+This is only needed for compound verbs ending with "行く" (To Go) or compound adjectives ending with "いい" (Good). It is necessary as 行く is considered a う verb but conjugates irregularly in the て form. Similarly, いい is considered an い adjective but conjugates irregularly too. Furthermore, filtering for adjectives ending in いい is insufficient as かわいい conjugates normally but かっこいい does not.
+
+For verbs and adjectives that conjugate normally according to their respective class, this attribute is not required.
 
 ## Rōmaji Support
 Kana characters can also be entered using an English keyboard if the Romkan library is installed (See External Dependencies). As characters are entered, lowercase English characters are converted to Hiragana and uppercase English characters are converted to Katakana.
 
 ## To Do
 - Rename variables and function names for consistency.
-- Use a better storage method for storing verbs (XML or JSON?).
 - Filtering based on verb/adjective class.
 - Implement a way of stopping cards from showing up too frequently.

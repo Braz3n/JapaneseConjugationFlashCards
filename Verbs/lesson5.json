@@ -1,0 +1,12 @@
+{
+    "ListType": "Verb",
+    "Lesson": "Five",
+    "WordList": [
+        {"Verb": "およぐ", "Class": "う", "Definition": "To Swim"},
+        {"Verb": "きく", "Class": "う", "Definition": "To Ask"},
+        {"Verb": "のる", "Class": "う", "Definition": "To Ride/To Board"},
+        {"Verb": "やる", "Class": "う", "Definition": "To Do/To Perform"},
+
+        {"Verb": "でかける", "Class": "る", "Definition": "To Go Out"}
+    ]
+}

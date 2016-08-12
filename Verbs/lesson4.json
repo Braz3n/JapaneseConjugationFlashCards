@@ -1,0 +1,15 @@
+{
+    "ListType": "Verb",
+    "Lesson": "Four",
+    "WordList": [
+        {"Verb": "あう", "Class": "う", "Definition": "To Meet"},
+        {"Verb": "ある", "Class": "う", "Definition": "To Exist (inanimate)"},
+        {"Verb": "かう", "Class": "う", "Definition": "To Buy"},
+        {"Verb": "かく", "Class": "う", "Definition": "To Write"},
+        {"Verb": "とる", "Class": "う", "Definition": "To Take"},
+        {"Verb": "まつ", "Class": "う", "Definition": "To Wait"},
+        {"Verb": "わかる", "Class": "う", "Definition": "To Understand"},
+
+        {"Verb": "いる", "Class": "る", "Definition": "To Exist (animate)"}
+    ]
+}

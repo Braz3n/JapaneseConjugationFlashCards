@@ -1,0 +1,14 @@
+{
+    "ListType": "Adjective",
+    "Lesson": "Nine",
+    "WordList": [
+        {"Adjective": "あおい", "Class": "い", "Definition": "Blue"},
+        {"Adjective": "あかい", "Class": "い", "Definition": "Red"},
+        {"Adjective": "くろい", "Class": "い", "Definition": "Black"},
+        {"Adjective": "さびしい", "Class": "い", "Definition": "Lonely"},
+        {"Adjective": "しろい", "Class": "い", "Definition": "White"},
+        {"Adjective": "わかい", "Class": "い", "Definition": "Young"},
+
+        {"Adjective": "いじわる", "Class": "な", "Definition": "Mean-Spirited"}
+    ]
+}

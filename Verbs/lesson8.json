@@ -1,0 +1,25 @@
+{
+    "ListType": "Verb",
+    "Lesson": "Eight",
+    "WordList": [
+        {"Verb": "あめがふる", "Class": "う", "Definition": "To Rain"},
+        {"Verb": "あらう", "Class": "う", "Definition": "To Wash"},
+        {"Verb": "いう", "Class": "う", "Definition": "To Say"},
+        {"Verb": "いる", "Class": "う", "Definition": "To Need"},
+        {"Verb": "おそくなる", "Class": "う", "Definition": "To Be Late"},
+        {"Verb": "おもう", "Class": "う", "Definition": "To Think"},
+        {"Verb": "きる", "Class": "う", "Definition": "To Cut"},
+        {"Verb": "つくる", "Class": "う", "Definition": "To Make"},
+        {"Verb": "もっていく", "Class": "う", "Definition": "To Take (a thing)", "ConjugateAs": "いく"},
+
+        {"Verb": "じろじろみる", "Class": "る", "Definition": "To Stare"},
+        {"Verb": "すてる", "Class": "る", "Definition": "To Throw Away"},
+        {"Verb": "はじめる", "Class": "る", "Definition": "To Begin"},
+
+        {"Verb": "うんてんする", "Class": "irregular", "Definition": "To Drive"},
+        {"Verb": "せんたくする", "Class": "irregular", "Definition": "To Do Laundry"},
+        {"Verb": "そうじする", "Class": "irregular", "Definition": "To Clean"},
+        {"Verb": "でんわする", "Class": "irregular", "Definition": "To Call"},
+        {"Verb": "りょうりする", "Class": "irregular", "Definition": "To Cook"}
+    ]
+}
