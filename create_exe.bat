@@ -1,0 +1,1 @@
+pyinstaller gui.py --onefile --noconsole --name ConjugationFlashCards --clean -p C:\Users\Zane\AppData\Local\Programs\Python\Python35\Lib\site-packages\PyQt5\Qt\bin
