@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import sys, random, os, os.path, copy, re, json
+import sys, platform, random, os, os.path, copy, re, json
 from PyQt5.QtWidgets import (QWidget, QLabel, QLineEdit, QMainWindow, QAction,
     QTextEdit, QGridLayout, QApplication, QPushButton, QMenuBar, QDialog, qApp,
     QCheckBox, QGroupBox, QVBoxLayout, QHBoxLayout, QSpacerItem, QMessageBox)
@@ -21,9 +21,13 @@ verbs_dir = "./verbs/"
 adjectives_dir = "./adjectives/"
 
 if getattr(sys, 'frozen', False):
-    application_path = os.path.dirname(sys.executable)
+    if platform.system().lower() == "darwin":
+        # If we're building an application for OSX, the executable is hidden in the application directory.
+        application_path = os.path.normpath(os.path.join(os.path.dirname(sys.executable), "../../.."))
+    else:
+        application_path = os.path.dirname(sys.executable)
 elif __file__:
-    application_path = os.path.dirname(__file__)
+        application_path = os.path.dirname(__file__)
 
 verbs_dir = os.path.join(application_path, verbs_dir)
 adjectives_dir = os.path.join(application_path, adjectives_dir)

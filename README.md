@@ -18,6 +18,8 @@ python3 gui.py
 
 To create an executable for the project, run either the `create_exe.sh` script on OSX, or the `create_exe.bat` script on Windows. The resulting executable is placed in the `dist` directory. The Verbs and Adjectives directories are also copied into the `dist` directory so that the executable can be run.
 
+In OSX, the create_exe.sh command also modifies the .plist file in the resulting application so that it correctly renders on a Retina display.
+
 ## Verb and Adjective Data Structure.
 Verbs and Adjectives are stored in their own respective folders in the root directory of the project. The word lists are stored in .json files (JavaScript Object Notation) in the appropriate folder.
 
@@ -51,3 +53,4 @@ Kana characters can also be entered using an English keyboard if the Romkan libr
 - Filtering based on verb/adjective class.
 - Implement a way of stopping cards from showing up too frequently.
 - Running the compiled application in OSX still opens a terminal window.
+- Add a help window linking to documentation.
