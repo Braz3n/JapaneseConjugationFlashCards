@@ -33,21 +33,23 @@ verbs_dir = os.path.join(application_path, verbs_dir)
 adjectives_dir = os.path.join(application_path, adjectives_dir)
 
 class SettingsState(object):
-    def __init__(self, verb_state, adj_state, form_state, tense_state, polarity_state):
+    def __init__(self, verb_state, adj_state, form_state, tense_state, polarity_state, easy_mode):
         self.verb_state = verb_state
         self.adj_state = adj_state
         self.form_state = form_state
         self.tense_state = tense_state
         self.polarity_state = polarity_state
+        self.easy_mode = easy_mode
 
 class QuizState(object):
-    def __init__(self, verb_list=[], adjective_list=[], form_list=["short", "te", "long"], tense_list=["present"], polarity_list=["negative", "affirmative"]):
+    def __init__(self, verb_list=[], adjective_list=[], form_list=["short", "te", "long"], tense_list=["present"], polarity_list=["negative", "affirmative"], easy_mode=False):
         self.word_list = []
         self.verb_list = verb_list
         self.adj_list = adjective_list
         self.form_list = form_list
         self.tense_list = tense_list
         self.polarity_list = polarity_list
+        self.easy_mode = easy_mode
 
     def populateWordList(self):
         self.word_list = []
@@ -59,7 +61,11 @@ class QuizState(object):
 
     def load_word_list_json(self, file_name):
         raw_file = open(file_name, 'r', encoding='utf-8')
-        json_data = json.load(raw_file)
+        try:
+            json_data = json.load(raw_file)
+        except:
+            # This json file is not valid. Ignore it.
+            return
 
         if json_data["ListType"] != "Verb" and json_data["ListType"] != "Adjective":
             raise ValueError("Unrecognized Word Type: \"{0}\"".format(json_data["ListType"]))
@@ -127,6 +133,8 @@ class QuizDialog(QDialog):
         self.polarity_checkboxes[0].setChecked(self.settings_state.polarity_state[0])
         self.polarity_checkboxes[1].setChecked(self.settings_state.polarity_state[1])
 
+        self.easy_mode.setChecked(self.settings_state.easy_mode)
+
     def getSettings(self):
         # Update the Verb and Adjective Settings States
         for i in range(len(self.verb_checkboxes)):
@@ -146,6 +154,8 @@ class QuizDialog(QDialog):
         self.settings_state.polarity_state[0] = self.polarity_checkboxes[0].isChecked()
         self.settings_state.polarity_state[1] = self.polarity_checkboxes[1].isChecked()
 
+        self.settings_state.easy_mode = self.easy_mode.isChecked()
+
         return self.settings_state
 
     def initUI(self):
@@ -156,10 +166,12 @@ class QuizDialog(QDialog):
 
         if os.path.isdir(verbs_dir):
             verb_lists = [f for f in os.listdir(verbs_dir) if os.path.isfile(os.path.join(verbs_dir, f)) and f[-5:] == '.json']
+            verb_lists = verify_json_list(verb_lists, file_directory=verbs_dir)
         else:
             verb_lists = []
         if os.path.isdir(adjectives_dir):
             adj_lists = [f for f in os.listdir(adjectives_dir) if os.path.isfile(os.path.join(adjectives_dir, f)) and f[-5:] == '.json']
+            adj_lists = verify_json_list(adj_lists, file_directory=adjectives_dir)
         else:
             adj_lists = []
 
@@ -227,6 +239,17 @@ class QuizDialog(QDialog):
         options_box = QGroupBox()
         options_box.setLayout(options_layout)
 
+        ######################
+        ## Easy Mode Layout ##
+        ######################
+
+        easy_layout = QHBoxLayout()
+        self.easy_mode = QCheckBox("Show Japanese Word with English Definition in Question")
+        easy_layout.addWidget(self.easy_mode)
+
+        easy_box = QGroupBox()
+        easy_box.setLayout(easy_layout)
+
         ##########################
         ## Accept/Cancel Layout ##
         ##########################
@@ -247,6 +270,7 @@ class QuizDialog(QDialog):
         #################
         main_layout = QVBoxLayout()
         main_layout.addWidget(options_box)
+        main_layout.addWidget(easy_box)
         main_layout.addWidget(button_box)
 
         self.setLayout(main_layout)
@@ -286,7 +310,8 @@ class QuizWidget(QWidget):
 
         grid = QGridLayout()
         grid.setColumnStretch(0, 1)
-        grid.setColumnMinimumWidth(1, 350)
+        # grid.setColumnMinimumWidth(1, 350)
+        grid.setColumnMinimumWidth(1, 450)
         grid.setColumnStretch(3, 1)
         grid.setRowStretch(0, 1)
         grid.setRowStretch(4, 1)
@@ -334,13 +359,18 @@ class QuizWidget(QWidget):
         else:
             polarity = None
 
+        if self.quiz_state.easy_mode:
+            easy_mode_string = " ({0}) ".format(word.japanese)
+        else:
+            easy_mode_string = ""
+
         form = self.quiz_state.form_list[random.randint(0, len(self.quiz_state.form_list)-1)]
         if form == "te":
-            self.question_string = "What is the {0} form of \"{1}\"?".format(form, word.english)
+            self.question_string = "What is the {0} form of \"{1}\"{2}?".format(form, word.english, easy_mode_string)
         elif form == "long":
-            self.question_string = "What is the {0}, {1} {2} form of \"{3}\"?".format(form, tense, polarity, word.english)
+            self.question_string = "What is the {0}, {1} {2} form of \"{3}\"{4}?".format(form, tense, polarity, word.english, easy_mode_string)
         elif form == "short":
-            self.question_string = "What is the {0}, {1} {2} form of \"{3}\"?".format(form, tense, polarity, word.english)
+            self.question_string = "What is the {0}, {1} {2} form of \"{3}\"{4}?".format(form, tense, polarity, word.english, easy_mode_string)
         else:
             raise ValueError("Unexpected form_selector value.")
 
@@ -385,7 +415,7 @@ class QuizWindow(QMainWindow):
         self.setCentralWidget(central)
         self.sendSettingsToQuiz()
 
-        self.setGeometry(300, 300, 500, -1)  # x, y, w, h
+        self.setGeometry(300, 300, 600, -1)  # x, y, w, h
         self.setWindowTitle("Japanese Flash Cards")
         self.show()
 
@@ -394,16 +424,19 @@ class QuizWindow(QMainWindow):
         # word lists available.
         if os.path.isdir(verbs_dir):
             verb = [True for f in os.listdir(verbs_dir) if os.path.isfile(os.path.join(verbs_dir, f)) and f[-5:] == '.json']
+            verb = verify_json_list(verb, file_directory=verbs_dir)
         else:
             verb = []
         if os.path.isdir(adjectives_dir):
             adj = [True for f in os.listdir(adjectives_dir) if os.path.isfile(os.path.join(adjectives_dir, f)) and f[-5:] == '.json']
+            verb = verify_json_list(adj, file_directory=adjectives_dir)
         else:
             adj = []
         form = [True, True, True]  # Long, Short, Te
         tense = [True, True]
         polarity = [True, True]
-        self.settingsState = SettingsState(verb, adj, form, tense, polarity)
+        easy_mode = False  # Assume that we don't want easy_mode.
+        self.settingsState = SettingsState(verb, adj, form, tense, polarity, easy_mode)
 
     def sendSettingsToQuiz(self):
         # Convert SettingsState to QuizState and send to the central widget.
@@ -415,6 +448,7 @@ class QuizWindow(QMainWindow):
 
         if os.path.isdir(verbs_dir):
             tempList = [f for f in os.listdir(verbs_dir) if os.path.isfile(os.path.join(verbs_dir, f)) and f[-5:] == '.json']
+            tempList = verify_json_list(tempList, file_directory=verbs_dir)
         else:
             tempList = []
         for i in range(len(self.settingsState.verb_state)):
@@ -423,6 +457,7 @@ class QuizWindow(QMainWindow):
 
         if os.path.isdir(adjectives_dir):
             tempList = [f for f in os.listdir(adjectives_dir) if os.path.isfile(os.path.join(adjectives_dir, f)) and f[-5:] == '.json']
+            tempList = verify_json_list(tempList, file_directory=adjectives_dir)
         else:
             tempList = []
         for i in range(len(self.settingsState.adj_state)):
@@ -446,7 +481,9 @@ class QuizWindow(QMainWindow):
         if self.settingsState.polarity_state[1]:
             polarityList.append("negative")
 
-        quizState = QuizState(verbList, adjList, formList, tenseList, polarityList)
+        easy_mode = self.settingsState.easy_mode
+
+        quizState = QuizState(verbList, adjList, formList, tenseList, polarityList, easy_mode)
         quizState.populateWordList()
         self.centralWidget().updateQuizState(quizState)
 
@@ -455,6 +492,20 @@ class QuizWindow(QMainWindow):
         if settingsDialog.exec_():
             self.settingsState = settingsDialog.getSettings()
             self.sendSettingsToQuiz()
+
+def verify_json_list(json_list, file_directory=""):
+    # Takes a list of .json file names. Returns the files that can be parsed successfully.
+    valid_files = []
+    # Don't list any invalid .json files.
+    for json_file in json_list:
+        try:
+            raw_data = open(os.path.join(file_directory, json_file), 'r', encoding='utf-8')
+            json.load(raw_data)
+            valid_files.append(json_file)
+        except:
+            # If json.load raises an exception, then we can't use that file.
+            pass
+    return valid_files
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
