@@ -52,5 +52,4 @@ Kana characters can also be entered using an English keyboard if the Romkan libr
 - Rename variables and function names for consistency.
 - Filtering based on verb/adjective class.
 - Implement a way of stopping cards from showing up too frequently.
-- Running the compiled application in OSX still opens a terminal window.
 - Add a help window linking to documentation.
