@@ -2,6 +2,7 @@
 class Adjective():
     def __init__(self, adjective, adjective_class, english_meaning, conjugate_as=None):
         self.adj = adjective
+        self.japanese = adjective
         self.adj_class = adjective_class
         self.english = english_meaning
         # If the adjective is a compound adjective with an irregular adjective,

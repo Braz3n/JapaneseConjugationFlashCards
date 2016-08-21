@@ -5,6 +5,7 @@ class Verb():
 
     def __init__(self, verb, verb_class, english_meaning, conjugate_as=None):
         self.verb = verb
+        self.japanese = verb
         self.verb_class = verb_class
         self.english = english_meaning
         # If the verb is a compound verb with an irregular verb.
