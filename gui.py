@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import (QWidget, QLabel, QLineEdit, QMainWindow, QAction,
     QTextEdit, QGridLayout, QApplication, QPushButton, QMenuBar, QDialog, qApp,
     QCheckBox, QGroupBox, QVBoxLayout, QHBoxLayout, QSpacerItem, QMessageBox)
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QFont
 
 from Verb import *
 from Adjective import *
@@ -298,6 +298,8 @@ class QuizWidget(QWidget):
 
     def initUI(self):
         self.question = QLabel('')
+        question_font = QFont("Calibri", 18)
+        self.question.setFont(question_font)
         self.question.setAlignment(Qt.AlignHCenter)
         submit = QPushButton('Submit', self)
         submit.clicked.connect(self.submitAnswer)
