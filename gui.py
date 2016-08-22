@@ -297,8 +297,14 @@ class QuizWidget(QWidget):
         self.initUI()
 
     def initUI(self):
+        # Determine the font size for the two systems.
+        if platform.system().lower() == "windows":
+            question_font = QFont("Yu Gothic", 11)
+            response_font = QFont("Yu Gothic", 11)
+        else:
+            question_font = QFont("Yu Gothic", 14)
+            response_font = QFont("Yu Gothic", 14)
         self.question = QLabel('')
-        question_font = QFont("Calibri", 18)
         self.question.setFont(question_font)
         self.question.setAlignment(Qt.AlignHCenter)
         submit = QPushButton('Submit', self)
@@ -308,12 +314,12 @@ class QuizWidget(QWidget):
         if ROMAJI:
             self.answer.textEdited.connect(self.__convertToKana)
         self.response = QLabel("")
+        self.response.setFont(response_font)
         self.response.setAlignment(Qt.AlignHCenter)
 
         grid = QGridLayout()
         grid.setColumnStretch(0, 1)
-        # grid.setColumnMinimumWidth(1, 350)
-        grid.setColumnMinimumWidth(1, 450)
+        grid.setColumnMinimumWidth(1, 550)
         grid.setColumnStretch(3, 1)
         grid.setRowStretch(0, 1)
         grid.setRowStretch(4, 1)
