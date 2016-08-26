@@ -6,7 +6,7 @@
         {"Verb": "かえる", "Class": "う", "Definition": "To Return/To Go Back"},
         {"Verb": "きく", "Class": "う", "Definition": "To Listen"},
         {"Verb": "のむ", "Class": "う", "Definition": "To Drink"},
-        {"Verb": "はなす", "Class": "う", "Definition": "To Speak"},
+        {"Verb": "はなす", "Class": "う", "Definition": "To Speak/To Talk"},
         {"Verb": "よむ", "Class": "う", "Definition": "To Read"},
 
         {"Verb": "おきる", "Class": "る", "Definition": "To Get Up"},

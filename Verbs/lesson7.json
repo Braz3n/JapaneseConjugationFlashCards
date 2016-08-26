@@ -4,13 +4,12 @@
     "WordList": [
         {"Verb": "うたう", "Class": "う", "Definition": "To Sing"},
         {"Verb": "かぶる", "Class": "う", "Definition": "To Put On (head)"},
-        {"Verb": "しる", "Class": "う", "Definition": "To Get To Know"},
         {"Verb": "すむ", "Class": "う", "Definition": "To Live"},
         {"Verb": "はく", "Class": "う", "Definition": "To Put On (below waist)"},
         {"Verb": "ふとる", "Class": "う", "Definition": "To Gain Weight"},
 
+
         {"Verb": "きる", "Class": "る", "Definition": "To Put On (above waist)"},
-        {"Verb": "つとめる", "Class": "る", "Definition": "To Work For"},
         {"Verb": "やせる", "Class": "る", "Definition": "To Lose Weight"},
 
         {"Verb": "けっこんする", "Class": "irregular", "Definition": "To Get Married"}
