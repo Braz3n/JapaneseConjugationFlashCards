@@ -299,8 +299,8 @@ class QuizWidget(QWidget):
     def initUI(self):
         # Determine the font size for the two systems.
         if platform.system().lower() == "windows":
-            question_font = QFont("Yu Gothic", 11)
-            response_font = QFont("Yu Gothic", 11)
+            question_font = QFont("Yu Gothic UI Semibold", 11)
+            response_font = QFont("Yu Gothic UI", 11)
         else:
             question_font = QFont("Yu Gothic", 14)
             response_font = QFont("Yu Gothic", 14)
