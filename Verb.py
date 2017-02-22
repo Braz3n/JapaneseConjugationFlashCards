@@ -2,6 +2,7 @@
 class Verb():
     u_stem_dict = {'す': 'し', 'く': 'き', 'ぐ': 'ぎ', 'ぶ': 'び', 'む': 'み', 'ぬ': 'に', 'る': 'り', 'つ': 'ち', 'う': 'い'}
     u_short_dict = {'す': 'さ', 'く': 'か', 'ぐ': 'が', 'ぶ': 'ば', 'む': 'ま', 'ぬ': 'な', 'る': 'ら', 'つ': 'た', 'う': 'わ'}
+    u_potential_dict = {'す': 'せ', 'く': 'け', 'ぐ': 'げ', 'ぶ': 'べ', 'む': 'め', 'ぬ': 'ね', 'る': 'れ', 'つ': 'て', 'う': 'え'}
 
     def __init__(self, verb, verb_class, english_meaning, conjugate_as=None):
         self.verb = verb
@@ -24,10 +25,12 @@ class Verb():
         """
         tense: Either "past" or "present" Tense.
         polarity: Either "affirmative" or "negative".
-        form: Either "polite" or "te" form.
+        form: Either "polite", "short", "potential" or "te" form.
         """
         if form == "te":
             conjugate = self.__te_form()
+        elif form == "potential":
+            conjugate = self.__potential_form()
         elif form == "long":
             conjugate = self.__polite_form(tense, polarity)
         elif form == "short":
@@ -43,6 +46,21 @@ class Verb():
 
         return conjugate
 
+    def __potential_form(self):
+        # Currently only the dictionary form of a verb's potential form is returned.
+        # In reality, however, the potential form can be further conjugated as a る verb.
+        if self.verb_class == "る":
+            return self.__verb_stem() + "られる"
+        elif self.verb_class == "irregular":
+            if self.conjugate_as[-2:] == "する":
+                return self.__verb_stem()[:-1] + "できる"
+            elif self.conjugate_as[-2:] == "くる":
+                return self.conjugate_as[-2:] + "こられる"
+            else:
+                raise ValueError("Unexpected Irregular Verb: {0}: {1}".format(self.verb, self.english))
+        elif self.verb_class == 'う':
+            return self.conjugate_as[:-1] + self.u_potential_dict[self.conjugate_as[-1]] + "る"
+
     def __te_form(self):
         if self.verb_class == "る":
             return self.__verb_stem() + "て"
@@ -51,7 +69,7 @@ class Verb():
                 return self.__verb_stem() + "て"
             else:
                 raise ValueError("Unexpected Irregular Verb: {0}: {1}".format(self.verb, self.english))
-        elif self.conjugate_as == "いく":
+        elif self.conjugate_as[-2:] == "いく":
             return "いって"
         elif self.conjugate_as[-1] in "うつる":
             return self.__verb_stem()[:-1] + "って"

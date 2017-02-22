@@ -42,7 +42,7 @@ class SettingsState(object):
         self.easy_mode = easy_mode
 
 class QuizState(object):
-    def __init__(self, verb_list=[], adjective_list=[], form_list=["short", "te", "long"], tense_list=["present"], polarity_list=["negative", "affirmative"], easy_mode=False):
+    def __init__(self, verb_list=[], adjective_list=[], form_list=["short", "te", "long", "potential"], tense_list=["present"], polarity_list=["negative", "affirmative"], easy_mode=False):
         self.word_list = []
         self.verb_list = verb_list
         self.adj_list = adjective_list
@@ -50,6 +50,9 @@ class QuizState(object):
         self.tense_list = tense_list
         self.polarity_list = polarity_list
         self.easy_mode = easy_mode
+
+    def __repr__(self):
+        return "Forms: {}\nTenses: {}\nPolarities: {}\nEasy Mode: {}".format(self.form_list, self.tense_list, self.polarity_list, self.easy_mode)
 
     def populateWordList(self):
         self.word_list = []
@@ -126,6 +129,7 @@ class QuizDialog(QDialog):
         self.form_checkboxes[0].setChecked(self.settings_state.form_state[0])
         self.form_checkboxes[1].setChecked(self.settings_state.form_state[1])
         self.form_checkboxes[2].setChecked(self.settings_state.form_state[2])
+        self.form_checkboxes[3].setChecked(self.settings_state.form_state[3])
 
         self.tense_checkboxes[0].setChecked(self.settings_state.tense_state[0])
         self.tense_checkboxes[1].setChecked(self.settings_state.tense_state[1])
@@ -147,6 +151,7 @@ class QuizDialog(QDialog):
         self.settings_state.form_state[0] = self.form_checkboxes[0].isChecked()
         self.settings_state.form_state[1] = self.form_checkboxes[1].isChecked()
         self.settings_state.form_state[2] = self.form_checkboxes[2].isChecked()
+        self.settings_state.form_state[3] = self.form_checkboxes[3].isChecked()
 
         self.settings_state.tense_state[0] = self.tense_checkboxes[0].isChecked()
         self.settings_state.tense_state[1] = self.tense_checkboxes[1].isChecked()
@@ -208,13 +213,16 @@ class QuizDialog(QDialog):
         form_short.setTristate(False)
         form_te = QCheckBox("Te")
         form_te.setTristate(False)
+        form_potential = QCheckBox("Potential")
+        form_potential.setTristate(False)
         form_box_layout.addWidget(form_long)
         form_box_layout.addWidget(form_short)
         form_box_layout.addWidget(form_te)
+        form_box_layout.addWidget(form_potential)
         form_box = QGroupBox("Form")
         form_box.setLayout(form_box_layout)
         options_layout.addWidget(form_box, 0, 2, 4, 1)
-        self.form_checkboxes = [form_long, form_short, form_te]
+        self.form_checkboxes = [form_long, form_short, form_te, form_potential]
 
         tense_box_layout = QVBoxLayout()
         tense_present = QCheckBox("Present")
@@ -279,15 +287,31 @@ class QuizDialog(QDialog):
         # Check whether or not the current settings make sense.
         self.getSettings()  # Update the local settingsState variable.
         list_selected = any(self.settings_state.verb_state) or any(self.settings_state.adj_state)
+        polarity_and_tense_selected = any(self.settings_state.polarity_state) and any(self.settings_state.tense_state)
+        short_form_selected = self.settings_state.form_state[0]
+        long_form_selected = self.settings_state.form_state[1]
         te_form_selected = self.settings_state.form_state[2]
-        other_form_selected = any(self.settings_state.form_state) and any(self.settings_state.tense_state) and any(self.settings_state.polarity_state)
+        potential_form_selected = self.settings_state.form_state[3]
 
-        if list_selected and (te_form_selected or other_form_selected):
+        if list_selected and te_form_selected:
+            # Any list and the te form have been selected.
+            self.accept()
+        elif list_selected and (short_form_selected or long_form_selected) and polarity_and_tense_selected:
+            # Any list have been selected along with polarity or tense values.
+            self.accept()
+        elif any(self.settings_state.verb_state) and potential_form_selected:
+            # A verb list have been selected and potential form has been selected.
+            if sum(self.settings_state.form_state) == 1:
+                # Only the potential form has been selected. We must deselect all of the adjectives.
+                for checkbox in self.adj_checkboxes:
+                    checkbox.setChecked(False)
+                    # self.settings_state.adj_state.append(False)
             self.accept()
         else:
+            # If the settings do not make sense, keep the settings window show an warning message.
             warning = QMessageBox(self)
             warning.setText("Invalid Set of Options")
-            warning.setInformativeText("Please select at least one Verb or Adjective list and either:\n1) The Te form\n2) A Form, Tense and Polarity from the right hand side.")
+            warning.setInformativeText("Please select at least one Verb or Adjective list and either:\n1) The Te form\n2) A Form, Tense and Polarity from the right hand side\n3 The Potential form (with at least one verb list)")
             warning.exec_()
 
 class QuizWidget(QWidget):
@@ -372,13 +396,21 @@ class QuizWidget(QWidget):
         else:
             easy_mode_string = ""
 
-        form = self.quiz_state.form_list[random.randint(0, len(self.quiz_state.form_list)-1)]
+        # form = self.quiz_state.form_list[random.randint(0, len(self.quiz_state.form_list)-1)]
+        form = random.choice(self.quiz_state.form_list)
+        # Adjectives do not have a potential form. As such, keep selecting until we get a viable form option.
+        while form == "potential" and isinstance(word, Adjective):
+            # form = self.quiz_state.form_list[random.randint(0, len(self.quiz_state.form_list)-1)]
+            form = random.choice(self.quiz_state.form_list[:-1])
+
         if form == "te":
             self.question_string = "What is the {0} form of \"{1}\"{2}?".format(form, word.english, easy_mode_string)
         elif form == "long":
             self.question_string = "What is the {0}, {1} {2} form of \"{3}\"{4}?".format(form, tense, polarity, word.english, easy_mode_string)
         elif form == "short":
             self.question_string = "What is the {0}, {1} {2} form of \"{3}\"{4}?".format(form, tense, polarity, word.english, easy_mode_string)
+        elif form == "potential":
+            self.question_string = "What is the {0} form of \"{1}\"{2}?".format(form, word.english, easy_mode_string)
         else:
             raise ValueError("Unexpected form_selector value.")
 
@@ -393,7 +425,6 @@ class QuizWidget(QWidget):
         self.answer.setText("")
 
         self.displayQuestion()
-
 
 class QuizWindow(QMainWindow):
     def __init__(self):
@@ -429,7 +460,7 @@ class QuizWindow(QMainWindow):
 
     def initSettings(self):
         # When starting the application, just assume we want to use all of the
-        # word lists available.
+        # word lists and conjugations available.
         if os.path.isdir(verbs_dir):
             verb = [True for f in os.listdir(verbs_dir) if os.path.isfile(os.path.join(verbs_dir, f)) and f[-5:] == '.json']
             verb = verify_json_list(verb, file_directory=verbs_dir)
@@ -440,7 +471,7 @@ class QuizWindow(QMainWindow):
             verb = verify_json_list(adj, file_directory=adjectives_dir)
         else:
             adj = []
-        form = [True, True, True]  # Long, Short, Te
+        form = [True, True, True, True]  # Long, Short, Te, Potential
         tense = [True, True]
         polarity = [True, True]
         easy_mode = False  # Assume that we don't want easy_mode.
@@ -478,6 +509,8 @@ class QuizWindow(QMainWindow):
             formList.append("short")
         if self.settingsState.form_state[2]:
             formList.append("te")
+        if self.settingsState.form_state[3]:
+            formList.append("potential")
 
         if self.settingsState.tense_state[0]:
             tenseList.append("present")

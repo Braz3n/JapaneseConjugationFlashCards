@@ -5,7 +5,7 @@
         {"Verb": "おどる", "Class": "う", "Definition": "To Dance"},
         {"Verb": "おわる", "Class": "う", "Definition": "(something) Ends"},
         {"Verb": "にんきがある", "Class": "う", "Definition": "To Be Popular"},
-        {"Verb": "はじまる", "Class": "る", "Definition": "(something) Begins"},
+        {"Verb": "はじまる", "Class": "う", "Definition": "(something) Begins"},
         {"Verb": "ひく", "Class": "う", "Definition": "To Play (a string instrument)"},
         {"Verb": "もらう", "Class": "う", "Definition": "To Get (from a person)"},
 
