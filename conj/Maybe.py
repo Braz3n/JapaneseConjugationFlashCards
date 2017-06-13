@@ -1,0 +1,66 @@
+from .Word import Verb, Adjective
+from .Short import conjugateShort
+
+def formName():
+    return "Maybe"
+
+def toolTip():
+    return "Something is Probable: 食べるかもしれません"
+
+def wordGroups():
+    return ["verb", "adjective"]
+
+def isTensed():
+    return True
+
+def isPolarised():
+    return True
+
+def question(word, form, tense, polarity, easy_mode, using_kanji):
+    if form.lower() not in ["long", "short"]:
+        form = "short"
+
+    if isinstance(word, Verb):
+        if easy_mode:
+            question = "What is the {}, {}, {} form of \"I Might {}\"? ({})".format(form, tense, polarity, word.english[3:], word.word_to_conjugate(using_kanji))
+        else:
+            question = "What is the {}, {}, {} form of \"I Might {}\"?".format(form, tense, polarity, word.english[3:])
+    elif isinstance(word, Adjective):
+        if easy_mode:
+            question = "What is the {}, {}, {} form of \"It Might Be {}\"? ({})".format(form, tense, polarity, word.english, word.word_to_conjugate(using_kanji))
+        else:
+            question = "What is the {}, {}, {} form of \"It Might Be {}\"?".format(form, tense, polarity, word.english)
+
+    answer = conjugateMaybe(word, form, tense, polarity, using_kanji)
+
+    return question, answer
+
+def conjugateMaybe(word, form, tense, polarity, using_kanji=False):
+    if isinstance(word, Verb):
+        return __verb(word, form, tense, polarity, using_kanji)
+    elif isinstance(word, Adjective):
+        return __adjective(word, form, tense, polarity, using_kanji)
+    else:
+        raise ValueError("Unexpected word class")
+
+def __verb(word, form, tense, polarity, using_kanji):
+    if form == "long":
+        maybe = conjugateShort(word, None, tense, polarity) + "かもしれません"
+    else:
+        maybe = conjugateShort(word, None, tense, polarity) + "かもしれない"
+
+    return maybe
+
+def __adjective(word, form, tense, polarity, using_kanji):
+    short_form = conjugateShort(word, None, tense, polarity)
+
+    if word.group is "な":
+        # We don't follow な-adjectives with だ in this form.
+        short_form = short_form[:-1]
+
+    if form == "long":
+        maybe = short_form + "かもしれません"
+    else:
+        maybe = short_form + "かもしれない"
+
+    return maybe

@@ -1,0 +1,27 @@
+{
+    "Title": "Lesson Twelve",
+    "Verbs": [
+        {"kana": "あるく", "kanji": "歩く", "english": "To Walk", "group": "う"},
+        {"kana": "かぜをひく", "kanji": "風邪をひく", "english": "To Catch A Cold", "group": "う"},
+        {"kana": "きょうみがある", "kanji": "興味がある", "english": "To Be Interested", "group": "う"},
+        {"kana": "なくす", "kanji": "None", "english": "To Lose", "group": "う"},
+        {"kana": "ねつがある", "kanji": "熱がある", "english": "To Have A Fever", "group": "う"},
+        {"kana": "のどがかわく", "kanji": "のどが渇く", "english": "To Become Thirsty", "group": "う"},
+
+        {"kana": "せきがでる", "kanji": "せきが出る", "english": "To Cough", "group": "る"},
+        {"kana": "わかれる", "kanji": "別れる", "english": "To Break Up", "group": "る"},
+
+        {"kana": "きんしょうする", "kanji": "緊張する", "english": "To Get Nervous", "group": "irregular"},
+        {"kana": "しんぱいする", "kanji": "心配する", "english": "To Worry", "group": "irregular"}
+    ],
+    "Adjectives": [
+        {"kana": "あまい", "kanji": "甘い", "english": "Sweet", "group": "い"},
+        {"kana": "いたい", "kanji": "痛い", "english": "Hurt/Painful", "group": "い"},
+        {"kana": "おおい", "kanji": "多い", "english": "There Are Many", "group": "い"},
+        {"kana": "せまい", "kanji": "狭い", "english": "Narrow/Not Spacious", "group": "い"},
+        {"kana": "つごうがわるい", "kanji": "都合が悪い", "english": "Inconvenient", "group": "い"},
+        {"kana": "わるい", "kanji": "悪い", "english": "Bad", "group": "い"},
+
+        {"kana": "すてき", "kanji": "素敵", "english": "Nice", "group": "な"}
+    ]
+}

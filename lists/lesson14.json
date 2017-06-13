@@ -1,0 +1,20 @@
+{
+    "Title": "Lesson Fourteen",
+    "Verbs": [
+        {"kana": "おくる", "kanji": "送る", "english": "To Send", "group": "う"},
+        {"kana": "にあう", "kanji": "似合う", "english": "To Look Good (on someone)", "group": "う"},
+
+        {"kana": "あきらめる", "kanji": "None", "english": "To Give Up", "group": "る"},
+        {"kana": "あげる", "kanji": "None", "english": "To Look Good (on someone)", "group": "る"},
+        {"kana": "くれる", "kanji": "None", "english": "To Look Good (on someone)", "group": "る"},
+        {"kana": "できる", "kanji": "None", "english": "To Look Good (on someone)", "group": "る"},
+
+        {"kana": "そうだんする", "kanji": "相談する", "english": "To Consult", "group": "irregular"},
+        {"kana": "プロポーズする", "kanji": "None", "english": "To Propose", "group": "irregular"}
+    ],
+    "Adjectives": [
+        {"kana": "ほしい", "kanji": "欲しい", "english": "To Want", "group": "い"},
+
+        {"kana": "けち", "kanji": "None", "english": "Stingy/Cheap", "group": "な"}
+    ]
+}

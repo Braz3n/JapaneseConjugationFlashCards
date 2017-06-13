@@ -1,0 +1,22 @@
+{
+    "Title": "Lesson Eleven",
+    "Verbs": [
+        {"kana": "うそをつく", "kanji": "None", "english": "To Tell A Lie", "group": "う"},
+        {"kana": "おなかがすく", "kanji": "None", "english": "To Become Hungry", "group": "う"},
+        {"kana": "かう", "kanji": "飼う", "english": "To Own (A Pet)", "group": "う"},
+        {"kana": "サボる", "kanji": "None", "english": "To Cut Classes", "group": "う"},
+        {"kana": "とる", "kanji": "取る", "english": "To Take (A Class)", "group": "う"},
+        {"kana": "ならう", "kanji": "習う", "english": "To Learn", "group": "う"},
+        {"kana": "のぼる", "kanji": "登る", "english": "To Climb", "group": "う"},
+        {"kana": "働く", "kanji": "働く", "english": "To Work", "group": "う"},
+
+        {"kana": "つかれる", "kanji": "疲れる", "english": "To Get Tired", "group": "る"},
+        {"kana": "やめる", "kanji": "None", "english": "To Quit", "group": "る"},
+
+        {"kana": "けんかする", "kanji": "None", "english": "To Quarrel", "group": "irregular"},
+        {"kana": "しょうかいする", "kanji": "紹介する", "english": "To Introduce", "group": "irregular"},
+        {"kana": "ダイエットする", "kanji": "None", "english": "To Go On A Diet", "group": "irregular"},
+        {"kana": "ちこくする", "kanji": "遅刻する", "english": "To Be Late", "group": "irregular"},
+        {"kana": "りゅうがくする", "kanji": "留学する", "english": "To Study Abroad", "group": "irregular"}
+    ]
+}

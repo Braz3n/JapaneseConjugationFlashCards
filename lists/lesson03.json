@@ -1,0 +1,23 @@
+{
+    "Title": "Lesson Three",
+    "Verbs": [
+        {"kana": "いく", "kanji": "行く", "english": "To Go", "group": "う"},
+        {"kana": "かえる", "kanji": "帰る", "english": "To Return", "group": "う"},
+        {"kana": "きく", "kanji": "聞く", "english": "To Listen/Ask", "group": "う"},
+        {"kana": "はなす", "kanji": "話す", "english": "To Speak", "group": "う"},
+        {"kana": "よむ", "kanji": "読む", "english": "To Read", "group": "う"},
+
+        {"kana": "おきる", "kanji": "起きる", "english": "To Get Up", "group": "る"},
+        {"kana": "たべる", "kanji": "食べる", "english": "To Eat", "group": "る"},
+
+        {"kana": "くる", "kanji": "来る", "english": "To Come", "group": "irregular"},
+        {"kana": "する", "kanji": "None", "english": "To Do", "group": "irregular"},
+        {"kana": "べんきょうする", "kanji": "勉強する", "english": "To Study", "group": "irregular"}
+    ],
+    "Adjectives": [
+        {"kana": "すき", "kanji": "好き", "english": "To Like", "group": "な"},
+
+        {"kana": "いい", "kanji": "None", "english": "Good", "group": "いい"},
+        {"kana": "やすい", "kanji": "安い", "english": "Cheap/Easy", "group": "い"}
+    ]
+}

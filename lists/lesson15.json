@@ -1,0 +1,26 @@
+{
+    "Title": "Lesson Fifteen",
+    "Verbs": [
+        {"kana": "うる", "kanji": "売る", "english": "To Sell", "group": "う"},
+        {"kana": "おろす", "kanji": "下ろす", "english": "To Withdraw Money", "group": "う"},
+        {"kana": "かく", "kanji": "描く", "english": "To Draw/To Paint", "group": "う"},
+        {"kana": "さがす", "kanji": "探す", "english": "To Look For", "group": "う"},
+        {"kana": "さそう", "kanji": "誘う", "english": "To Invite", "group": "う"},
+        {"kana": "しゃべる", "kanji": "None", "english": "To Chat", "group": "う"},
+        {"kana": "つきあう", "kanji": "付き合う", "english": "To Date", "group": "う"},
+        {"kana": "つく", "kanji": "着く", "english": "To Arrive", "group": "う"},
+        {"kana": "ほけんにはいる", "kanji": "保険に入る", "english": "To Buy Insurance", "group": "う"},
+
+        {"kana": "きをつける", "kanji": "気をつける", "english": "To Be Careful", "group": "う"},
+        {"kana": "しらべる", "kanji": "調べる", "english": "To Look Into", "group": "う"},
+        {"kana": "みえる", "kanji": "見える", "english": "To Be Visible", "group": "う"},
+
+        {"kana": "かんこうする", "kanji": "観光する", "english": "To Do Sightseeing", "group": "irregular"},
+        {"kana": "する", "kanji": "None", "english": "To Decide On", "group": "irregular"},
+        {"kana": "そつぎょうする", "kanji": "卒業する", "english": "To Graduate", "group": "irregular"},
+        {"kana": "よやくする", "kanji": "予約する", "english": "To Reserve", "group": "irregular"}
+    ],
+    "Adjectives": [
+        {"kana": "ひろい", "kanji": "広い", "english": "Spacious/Wide", "group": "い"}
+    ]
+}

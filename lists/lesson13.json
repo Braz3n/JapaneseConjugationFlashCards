@@ -1,0 +1,25 @@
+{
+    "Title": "Lesson Thirteen",
+    "Verbs": [
+        {"kana": "あむ", "kanji": "編む", "english": "To Knit", "group": "う"},
+        {"kana": "かす", "kanji": "貸す", "english": "To Lent/To Rent", "group": "う"},
+        {"kana": "がんばる", "kanji": "頑張る", "english": "To Do One's Best", "group": "う"},
+        {"kana": "なく", "kanji": "泣く", "english": "To Cry", "group": "う"},
+        {"kana": "みがく", "kanji": "磨く", "english": "To Brush Teeth/To Polish", "group": "う"},
+        {"kana": "やくそくをまもる", "kanji": "約束を守る", "english": "To Keep A Promise", "group": "う"},
+
+        {"kana": "かんどうする", "kanji": "感動する", "english": "To Worry", "group": "irregular"}
+    ],
+    "Adjectives": [
+        {"kana": "うれしい", "kanji": "None", "english": "Glad", "group": "い"},
+        {"kana": "かなしい", "kanji": "悲しい", "english": "Sad", "group": "い"},
+        {"kana": "からい", "kanji": "辛い", "english": "Hot and Spicy/Salty", "group": "い"},
+        {"kana": "きびしい", "kanji": "厳しい", "english": "Strict", "group": "い"},
+        {"kana": "すごい", "kanji": "None", "english": "Incredible/Awesome", "group": "い"},
+        {"kana": "ちかい", "kanji": "近い", "english": "Close/Near", "group": "い"},
+
+        {"kana": "いろいろ", "kanji": "None", "english": "Various", "group": "な"},
+        {"kana": "しあわせ", "kanji": "幸せ", "english": "Happy", "group": "な"},
+        {"kana": "だめ", "kanji": "だめ", "english": "No Good", "group": "な"}
+    ]
+}

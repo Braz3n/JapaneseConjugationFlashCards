@@ -1,0 +1,35 @@
+{
+    "Title": "Lesson Six",
+    "Verbs": [
+        {"kana": "あそぶ", "kanji": "遊ぶ", "english": "To Swim", "group": "う"},
+        {"kana": "いそぐ", "kanji": "急ぐ", "english": "To Hurry", "group": "う"},
+        {"kana": "おふろにはいる", "kanji": "お風呂に入る", "english": "To Take a Bath", "group": "う"},
+        {"kana": "かえす", "kanji": "返す", "english": "To Return (A Thing)", "group": "う"},
+        {"kana": "けす", "kanji": "消す", "english": "To Turn Off/Erase", "group": "う"},
+        {"kana": "しぬ", "kanji": "死ぬ", "english": "To Die", "group": "う"},
+        {"kana": "すわる", "kanji": "座る", "english": "To Sit", "group": "う"},
+        {"kana": "たつ", "kanji": "立つ", "english": "To Stand", "group": "う"},
+        {"kana": "たばごをすう", "kanji": "たばこを吸う", "english": "To Smoke", "group": "う"},
+        {"kana": "つかう", "kanji": "使う", "english": "To Use", "group": "う"},
+        {"kana": "てつだう", "kanji": "手伝う", "english": "To Help", "group": "う"},
+        {"kana": "はいる", "kanji": "入る", "english": "To Enter", "group": "う"},
+        {"kana": "もつ", "kanji": "持つ", "english": "To Carry/Hold", "group": "う"},
+        {"kana": "やすむ", "kanji": "休む", "english": "To Rest/Be Absent", "group": "う"},
+
+        {"kana": "あける", "kanji": "開ける", "english": "To Open", "group": "る"},
+        {"kana": "おしえる", "kanji": "教える", "english": "To Teach", "group": "る"},
+        {"kana": "おりる", "kanji": "降りる", "english": "To Get Off", "group": "る"},
+        {"kana": "かりる", "kanji": "借りる", "english": "To Borrow", "group": "る"},
+        {"kana": "しめる", "kanji": "閉める", "english": "To Close (Something)", "group": "る"},
+        {"kana": "シャワーをあびる", "kanji": "シャワーを浴びる", "english": "To Take a Shower", "group": "る"},
+        {"kana": "つける", "kanji": "None", "english": "To Turn On", "group": "る"},
+        {"kana": "でんわをかける", "kanji": "電話をかける", "english": "To Make a Phone Call", "group": "る"},
+        {"kana": "わすれる", "kanji": "忘れる", "english": "To Forget/Leave Behind", "group": "る"},
+
+        {"kana": "つれてくる", "kanji": "連れてくる", "english": "To Bring (A Person)", "group": "irregular"},
+        {"kana": "もってくる", "kanji": "持ってくる", "english": "To Bring (A Thing)", "group": "irregular"}
+    ],
+    "Adjectives": [
+        {"kana": "たいへん", "kanji": "大変", "english": "Tough (Situation)", "group": "な"}
+    ]
+}
