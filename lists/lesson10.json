@@ -1,0 +1,23 @@
+{
+    "Title": "Lesson Ten",
+    "Verbs": [
+        {"kana": "かかる", "kanji": "None", "english": "To Take Time", "group": "う"},
+        {"kana": "とまる", "kanji": "泊まる", "english": "To Stay (At A Hotel)", "group": "う"},
+        {"kana": "なる", "kanji": "None", "english": "To Become", "group": "う"},
+        {"kana": "はらう", "kanji": "払う", "english": "To Pay", "group": "う"},
+
+        {"kana": "きめる", "kanji": "決める", "english": "To Decide", "group": "る"},
+
+        {"kana": "りょこうする", "kanji": "旅行する", "english": "To Travel", "group": "irregular"},
+        {"kana": "れんしゅうする", "kanji": "練習する", "english": "To Practice", "group": "irregular"}
+    ],
+    "Adjectives": [
+        {"kana": "あたたかい", "kanji": "暖かい", "english": "Warm", "group": "い"},
+        {"kana": "おそい", "kanji": "遅い", "english": "Slow/Late", "group": "い"},
+        {"kana": "すずしい", "kanji": "涼しい", "english": "Cool (Weather)", "group": "い"},
+        {"kana": "つめたい", "kanji": "冷たい", "english": "Cool (Things/People)", "group": "い"},
+        {"kana": "ねむい", "kanji": "眠い", "english": "Sleepy", "group": "い"},
+
+        {"kana": "かんたん", "kanji": "簡単", "english": "Easy/Simple", "group": "な"}
+    ]
+}

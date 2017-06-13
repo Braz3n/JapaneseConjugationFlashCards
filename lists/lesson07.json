@@ -1,0 +1,26 @@
+{
+    "Title": "Lesson Seven",
+    "Verbs": [
+        {"kana": "うたう", "kanji": "歌う", "english": "To Sing", "group": "う"},
+        {"kana": "かぶる", "kanji": "None", "english": "To Put On (A Hat)", "group": "う"},
+        {"kana": "すむ", "kanji": "住む", "english": "To Live", "group": "う"},
+        {"kana": "はく", "kanji": "None", "english": "To Put On (Below Waist)", "group": "う"},
+
+        {"kana": "きる", "kanji": "着る", "english": "To Put On (Above Waist)", "group": "る"},
+
+        {"kana": "けっこんする", "kanji": "結婚する", "english": "To Get Married", "group": "irregular"}
+    ],
+    "Adjectives": [
+        {"kana": "かわいい", "kanji": "None", "english": "Cute", "group": "い"},
+        {"kana": "せがたかい", "kanji": "背が高い", "english": "Tall", "group": "い"},
+        {"kana": "せがひくい", "kanji": "背が低い", "english": "Short (Stature)", "group": "い"},
+        {"kana": "ながい", "kanji": "長い", "english": "Long", "group": "い"},
+        {"kana": "はやい", "kanji": "早い", "english": "Fast", "group": "い"},
+        {"kana": "みじかい", "kanji": "短い", "english": "Short (Length)", "group": "い"},
+
+        {"kana": "あたまがいい", "kanji": "None", "english": "Clever", "group": "いい"},
+
+        {"kana": "しせつ", "kanji": "親切", "english": "Kind", "group": "な"},
+        {"kana": "べんり", "kanji": "便利", "english": "Convenient", "group": "な"}
+    ]
+}

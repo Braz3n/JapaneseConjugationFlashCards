@@ -1,0 +1,29 @@
+{
+    "Title": "Lesson Eight",
+    "Verbs": [
+        {"kana": "あめがふる", "kanji": "雨が降る", "english": "To Rain", "group": "う"},
+        {"kana": "あらう", "kanji": "洗う", "english": "To Wash", "group": "う"},
+        {"kana": "いう", "kanji": "言う", "english": "To Say", "group": "う"},
+        {"kana": "いる", "kanji": "None", "english": "To Need", "group": "う"},
+        {"kana": "おそくなる", "kanji": "遅くなる", "english": "To Be Late", "group": "う"},
+        {"kana": "おもう", "kanji": "思う", "english": "To Think", "group": "う"},
+        {"kana": "きる", "kanji": "切る", "english": "To Cut", "group": "う"},
+        {"kana": "つくる", "kanji": "作る", "english": "To Make", "group": "う"},
+        {"kana": "もっていく", "kanji": "持っていく", "english": "To Take (A Thing)", "group": "う"},
+
+        {"kana": "じろじろみる", "kanji": "じろじろ見る", "english": "To Stare At", "group": "る"},
+        {"kana": "すてる", "kanji": "捨てる", "english": "To Throw Away", "group": "る"},
+        {"kana": "はじめる", "kanji": "始める", "english": "To Begin", "group": "る"},
+
+        {"kana": "うんてんする", "kanji": "運転する", "english": "To Drive", "group": "irregular"},
+        {"kana": "せんたくする", "kanji": "洗濯する", "english": "To Do Laundry", "group": "irregular"},
+        {"kana": "そうじする", "kanji": "掃除する", "english": "To Clean", "group": "irregular"},
+        {"kana": "でんわする", "kanji": "電話する", "english": "To Call", "group": "irregular"},
+        {"kana": "りょうりする", "kanji": "料理する", "english": "To Cook", "group": "irregular"}
+    ],
+    "Adjectives": [
+        {"kana": "じょうず", "kanji": "上手", "english": "Good At", "group": "な"},
+        {"kana": "下手", "kanji": "下手", "english": "Poor At", "group": "な"},
+        {"kana": "ゆうめい", "kanji": "有名", "english": "Famous", "group": "な"}
+    ]
+}

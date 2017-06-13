@@ -1,0 +1,24 @@
+{
+    "Title": "Lesson Nine",
+    "Verbs": [
+        {"kana": "おどる", "kanji": "踊る", "english": "To Dance", "group": "う"},
+        {"kana": "にんきがある", "kanji": "人気がある", "english": "To Be Popular", "group": "う"},
+        {"kana": "もらう", "kanji": "None", "english": "To Get", "group": "う"},
+
+        {"kana": "おぼえる", "kanji": "覚える", "english": "To Memorize", "group": "る"},
+        {"kana": "でる", "kanji": "出る", "english": "To Exit", "group": "る"},
+
+        {"kana": "うんどうする", "kanji": "運動する", "english": "To Do Physical Exercise", "group": "irregular"},
+        {"kana": "さんぽする", "kanji": "散歩する", "english": "To Take A Walk", "group": "irregular"}
+    ],
+    "Adjectives": [
+        {"kana": "あおい", "kanji": "青い", "english": "Blue", "group": "い"},
+        {"kana": "あかい", "kanji": "赤い", "english": "Red", "group": "い"},
+        {"kana": "くろい", "kanji": "黒い", "english": "Black", "group": "い"},
+        {"kana": "さびしい", "kanji": "寂しい", "english": "Lonely", "group": "い"},
+        {"kana": "しろい", "kanji": "白い", "english": "White", "group": "い"},
+        {"kana": "わかい", "kanji": "若い", "english": "Young", "group": "い"},
+
+        {"kana": "いじわる", "kanji": "意地悪", "english": "Mean-Spirited", "group": "な"}
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "Title": "Lesson Four",
+    "Verbs": [
+        {"kana": "あう", "kanji": "会う", "english": "To Meet", "group": "う"},
+        {"kana": "ある", "kanji": "None", "english": "To Exist (Inanimate)", "group": "う"},
+        {"kana": "かう", "kanji": "買う", "english": "To Buy", "group": "う"},
+        {"kana": "かく", "kanji": "書く", "english": "To Write", "group": "う"},
+        {"kana": "とる", "kanji": "撮る", "english": "To Take (a picture)", "group": "う"},
+        {"kana": "まつ", "kanji": "待つ", "english": "To Wait", "group": "う"},
+        {"kana": "わかる", "kanji": "None", "english": "To Understand", "group": "う"},
+
+        {"kana": "いる", "kanji": "None", "english": "To Exist (Animate)", "group": "る"}
+    ]
+}

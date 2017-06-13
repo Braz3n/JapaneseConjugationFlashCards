@@ -1,0 +1,39 @@
+{
+    "Title": "Lesson Five",
+    "Verbs": [
+        {"kana": "およぐ", "kanji": "泳ぐ", "english": "To Swim", "group": "う"},
+        {"kana": "きく", "kanji": "聞く", "english": "To Ask", "group": "う"},
+        {"kana": "のる", "kanji": "乗る", "english": "To Ride/Board", "group": "う"},
+
+        {"kana": "でかける", "kanji": "出かける", "english": "To Go Out", "group": "る"}
+    ],
+    "Adjectives": [
+        {"kana": "あたらしい", "kanji": "新しい", "english": "New", "group": "い"},
+        {"kana": "あつい", "kanji": "暑い", "english": "Hot (Weather)", "group": "い"},
+        {"kana": "あつい", "kanji": "熱い", "english": "Hot (Thing)", "group": "い"},
+        {"kana": "いそがしい", "kanji": "忙しい", "english": "Busy", "group": "い"},
+        {"kana": "おおきい", "kanji": "大きい", "english": "Large", "group": "い"},
+        {"kana": "おもしろい", "kanji": "面白い", "english": "Interesting/Funny", "group": "い"},
+        {"kana": "こわい", "kanji": "怖い", "english": "Frightening", "group": "い"},
+        {"kana": "さむい", "kanji": "寒い", "english": "Cold (Weather)", "group": "い"},
+        {"kana": "たのしい", "kanji": "楽しい", "english": "Fun", "group": "い"},
+        {"kana": "ちいさい", "kanji": "小さい", "english": "Small", "group": "い"},
+        {"kana": "つまらない", "kanji": "None", "english": "Boring", "group": "い"},
+        {"kana": "ふるい", "kanji": "古い", "english": "Old (Thing)", "group": "い"},
+        {"kana": "むずかしい", "kanji": "難しい", "english": "Difficult", "group": "い"},
+        {"kana": "やさしい", "kanji": "None", "english": "Easy/Kind", "group": "い"},
+        {"kana": "やすい", "kanji": "安い", "english": "Cheap (Thing)", "group": "い"},
+
+        {"kana": "かっこいい", "kanji": "None", "english": "Good-Looking", "group": "いい"},
+
+        {"kana": "きらい", "kanji": "嫌い", "english": "To Dislike", "group": "な"},
+        {"kana": "きれい", "kanji": "None", "english": "Clean/Beautiful", "group": "な"},
+        {"kana": "げんき", "kanji": "元気", "english": "Healthy/Energetic", "group": "な"},
+        {"kana": "しずか", "kanji": "静か", "english": "Quiet", "group": "な"},
+        {"kana": "すき", "kanji": "好き", "english": "To Like", "group": "な"},
+        {"kana": "だいきらい", "kanji": "大嫌い", "english": "To Hate", "group": "な"},
+        {"kana": "だいすき", "kanji": "大好き", "english": "To Love", "group": "な"},
+        {"kana": "にぎやか", "kanji": "None", "english": "Lively", "group": "な"},
+        {"kana": "ひま", "kanji": "暇", "english": "To Have Free Time", "group": "な"}
+    ]
+}
