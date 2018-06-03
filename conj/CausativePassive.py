@@ -1,15 +1,12 @@
 from .Word import Verb, Adjective
 from .Long import conjugateLong
 from .Short import conjugateShort
-from .Te import conjugateTe
-
-u_potential_dict = {'す': 'せ', 'く': 'け', 'ぐ': 'げ', 'ぶ': 'べ', 'む': 'め', 'ぬ': 'ね', 'る': 'れ', 'つ': 'て', 'う': 'え'}
 
 def formName():
-    return "Potential"
+    return "Causative-Passive"
 
 def toolTip():
-    return "Potential Form: 食べられる/飲める"
+    return "Causative-Passive Form: 食べさせられる/飲まさせられる"
 
 def wordGroups():
     return ["verb"]
@@ -25,15 +22,15 @@ def isPolarised():
 
 def question(word, formality, tense, polarity, easy_mode, using_kanji):
     if easy_mode:
-        question = "What is the {}, {}, {}, potential form of \"{}\"? ({})".format(formality, tense, polarity, word.english, word.word_to_conjugate(using_kanji))
+        question = "What is the {}, {}, {}, causative-passive form of \"{}\"? ({})".format(formality, tense, polarity, word.english, word.word_to_conjugate(using_kanji))
     else:
-        question = "What is the {}, {}, {}, potential form of \"{}\"?".format(formality, tense, polarity, word.english)
+        question = "What is the {}, {}, {}, causative-passive form of \"{}\"?".format(formality, tense, polarity, word.english)
 
-    answer = conjugatePotential(word, formality, tense, polarity, using_kanji)
+    answer = conjugateCausativePassive(word, formality, tense, polarity, using_kanji)
 
     return question, answer
 
-def conjugatePotential(word, formality, tense, polarity, using_kanji=False):
+def conjugateCausativePassive(word, formality, tense, polarity, using_kanji=False):
     if isinstance(word, Verb):
         return __verb(word, formality, tense, polarity, using_kanji)
     else:
@@ -46,31 +43,31 @@ def __verb(word, formality, tense, polarity, using_kanji):
         dict_form = word.kana
 
     if word.group == "る":
-        potential_form = word.stem(using_kanji) + "られる"
+        causative_passive_form = word.stem(using_kanji) + "させられる"
     elif word.group == "う":
-        potential_form = dict_form[:-1] + u_potential_dict[dict_form[-1]] + "る"
+        causative_passive_form = conjugateShort(word, None, "present", "negative", using_kanji)[:-1] + "される"
     elif word.group == "irregular":
         if dict_form[-2:] == "する":
-            potential_form = word.stem(using_kanji)[:-1] + "できる"
+            causative_passive_form = word.stem(using_kanji)[:-1] + "させられる"
         elif dict_form[-2:] == "くる":
-            potential_form = word.stem(using_kanji)[:-1] + "こられる"
+            causative_passive_form = word.stem(using_kanji)[:-1] + "こさせられる"
         elif dict_form[-2:] == "来る":
-            potential_form = word.stem(using_kanji) + "られる"
+            causative_passive_form = word.stem(using_kanji) + "来させられる"
 
     # Create a temporary verb object so we can generate the conjugation as if
     # it were a る verb.
     if using_kanji:
-        temp_verb = Verb(None, potential_form, None, "る")
+        temp_verb = Verb(None, causative_passive_form, None, "る")
     else:
-        temp_verb = Verb(potential_form, None, None, "る")
+        temp_verb = Verb(causative_passive_form, None, None, "る")
 
     if formality == "casual" and tense == "present" and polarity == "affirmative":
         pass
     elif formality == "casual":
-        potential_form = conjugateShort(temp_verb, None, tense, polarity, using_kanji)
+        causative_passive_form = conjugateShort(temp_verb, None, tense, polarity, using_kanji)
     elif formality == "polite":
-        potential_form = conjugateLong(temp_verb, None, tense, polarity, using_kanji)
+        causative_passive_form = conjugateLong(temp_verb, None, tense, polarity, using_kanji)
     else:
         raise ValueError("Invalid form value for potential conjugation: {}".format(form))
 
-    return potential_form
+    return causative_passive_form

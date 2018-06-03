@@ -12,24 +12,26 @@ def toolTip():
 def wordGroups():
     return ["verb"]
 
+def hasFormalities():
+    return False
+
 def isTensed():
     return False
 
 def isPolarised():
     return False
 
-def question(word, form, tense, polarity, easy_mode, using_kanji):
-    print(using_kanji)
+def question(word, formality, tense, polarity, easy_mode, using_kanji):
     if easy_mode:
         question = "What is the volitional form of \"{}\"? ({})".format(word.english, word.word_to_conjugate(using_kanji))
     else:
         question = "What is the volitional form of \"{}\"?".format(word.english)
 
-    answer = conjugateVolitional(word, form, tense, polarity, using_kanji)
+    answer = conjugateVolitional(word, formality, tense, polarity, using_kanji)
 
     return question, answer
 
-def conjugateVolitional(word, form, tense, polarity, using_kanji=False):
+def conjugateVolitional(word, formality, tense, polarity, using_kanji=False):
     if isinstance(word, Verb):
         return __verb(word, tense, polarity, using_kanji)
     else:
@@ -44,7 +46,7 @@ def __verb(word, tense, polarity, using_kanji):
         volitional_form = short_form[:-1] + "よう"
     elif word.group == "irregular":
         if short_form[-2:] == "する":
-            volitional_form = short_form[-2:] + "しよう"
+            volitional_form = short_form[:-2] + "しよう"
         elif short_form[-2:] == "くる":
             # This seems weird, but it is important for compound verbs.
             volitional_form = short_form[:-2] + "こよう"

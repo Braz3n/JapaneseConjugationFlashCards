@@ -10,23 +10,26 @@ def toolTip():
 def wordGroups():
     return ["verb"]
 
+def hasFormalities():
+    return False
+
 def isTensed():
     return False
 
 def isPolarised():
     return False
 
-def question(word, form, tense, polarity, easy_mode, using_kanji):
+def question(word, formality, tense, polarity, easy_mode, using_kanji):
     if easy_mode:
-        question = "What is \"Why Don't You Try {}\"? ({})".format(word.english, word.word_to_conjugate(using_kanji))
+        question = "What is \"Why Don't You {}\"? ({})".format(word.english[3:], word.word_to_conjugate(using_kanji))
     else:
-        question = "What is \"Why Don't You Try {}\"?".format(word.english)
+        question = "What is \"Why Don't You {}\"?".format(word.english[3:])
 
-    answer = conjugateAdvice(word, form, tense, polarity, using_kanji)
+    answer = conjugateAdvice(word, formality, tense, polarity, using_kanji)
 
     return question, answer
 
-def conjugateAdvice(word, form, tense, polarity, using_kanji=False):
+def conjugateAdvice(word, formality, tense, polarity, using_kanji=False):
     if isinstance(word, Verb):
         return __verb(word, using_kanji)
     else:

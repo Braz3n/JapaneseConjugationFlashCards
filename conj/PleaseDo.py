@@ -11,29 +11,32 @@ def toolTip():
 def wordGroups():
     return ["verb"]
 
+def hasFormalities():
+    return False
+
 def isTensed():
     return False
 
 def isPolarised():
     return True
 
-def question(word, form, tense, polarity, easy_mode, using_kanji):
+def question(word, formality, tense, polarity, easy_mode, using_kanji):
     if polarity == "affirmative":
         if easy_mode:
             question = "What is \"Please {}\"? ({})".format(word.english[3:], word.word_to_conjugate(using_kanji))
         else:
-            question = "What \"Please {}\"?".format(word.english[3:])
+            question = "What is \"Please {}\"?".format(word.english[3:])
     else:
         if easy_mode:
             question = "What is \"Please Do Not {}\"? ({})".format(word.english[3:], word.word_to_conjugate(using_kanji))
         else:
-            question = "What \"Please Do Not {}\"?".format(word.english[3:])
+            question = "What is \"Please Do Not {}\"?".format(word.english[3:])
 
-    answer = conjugatePleaseDo(word, form, tense, polarity, using_kanji)
+    answer = conjugatePleaseDo(word, formality, tense, polarity, using_kanji)
 
     return question, answer
 
-def conjugatePleaseDo(word, form, tense, polarity, using_kanji=False):
+def conjugatePleaseDo(word, formality, tense, polarity, using_kanji=False):
     if isinstance(word, Verb):
         return __verb(word, polarity, using_kanji)
     else:

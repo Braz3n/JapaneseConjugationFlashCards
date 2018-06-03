@@ -11,38 +11,40 @@ def toolTip():
 def wordGroups():
     return ["adjective"]
 
+def hasFormalities():
+    return True
+
 def isTensed():
     return True
 
 def isPolarised():
     return True
 
-def question(word, form, tense, polarity, easy_mode, using_kanji):
-    if form not in ["long", "short"]:
-        form = "short"
+def question(word, formality, tense, polarity, easy_mode, using_kanji):
     if easy_mode:
-        question = "What is the {}, {}, {} form of \"To Become {}\"? ({})".format(form, tense, polarity, word.english, word.word_to_conjugate(using_kanji))
+        question = "What is the {}, {}, {} form of \"To Become {}\"? ({})".format(formality, tense, polarity, word.english, word.word_to_conjugate(using_kanji))
     else:
-        question = "What is the {}, {}, {} form of \"To Become {}\"?".format(form, tense, polarity, word.english)
+        question = "What is the {}, {}, {} form of \"To Become {}\"?".format(formality, tense, polarity, word.english)
 
-    answer = conjugateBecome(word, form, tense, polarity, using_kanji)
+    answer = conjugateBecome(word, formality, tense, polarity, using_kanji)
 
     return question, answer
 
-def conjugateBecome(word, form, tense, polarity, using_kanji=False):
+def conjugateBecome(word, formality, tense, polarity, using_kanji=False):
     if isinstance(word, Adjective):
-        return __adjective(word, form, tense, polarity, using_kanji)
+        return __adjective(word, formality, tense, polarity, using_kanji)
     else:
         raise ValueError("Unexpected word class")
 
-def __adjective(word, form, tense, polarity, using_kanji):
+def __adjective(word, formality, tense, polarity, using_kanji):
     naru = Verb("なる", "成る", "To Become", "う")
-    if form == "short":
+
+    if formality == "casual":
         naru = conjugateShort(naru, None, tense, polarity)
-    elif form == "long":
+    elif formality == "polite":
         naru = conjugateLong(naru, None, tense, polarity)
     else:
-        raise ValueError("Invalid form value for \"Become\" conjugation: {}".format(form))
+        raise ValueError("Invalid formality value for \"Become\" conjugation: {}".format(formality))
 
     become_form = word.stem(using_kanji)
     if word.group in ["い", "いい"]:

@@ -7,10 +7,8 @@ from PyQt5.QtGui import QIcon, QFont
 
 from misc import get_word_list_names, load_word_lists
 
-from conj import Advice, Become, Long, Maybe, PleaseDo, Potential, Seems, Short, Te, Want, Hearsay, Volitional
-conjugation_forms_global = ["Advice", "Become", "Long", "Maybe", "PleaseDo", "Potential", "Seems", "Short", "Te", "Want", "Hearsay", "Volitional"]
-
-# print(conj.conjugations)
+from conj import Advice, Become, Long, Maybe, PleaseDo, Potential, Seems, Short, Te, Want, Hearsay, Volitional, Causative, Passive, CausativePassive
+conjugation_forms_global = ["Advice", "Become", "Long", "Maybe", "PleaseDo", "Potential", "Seems", "Short", "Te", "Want", "Hearsay", "Volitional", "Causative", "Passive", "CausativePassive"]
 
 try:
     # Attempt to load the Kana to Romaji library.
@@ -33,10 +31,11 @@ elif __file__:
 WORD_LIST_DIRECTORY = os.path.join(application_path, WORD_LIST_DIRECTORY)
 
 class SettingsState(object):
-    def __init__(self, verb_state, adj_state, form_state, tense_state, polarity_state, easy_mode, kanji_mode):
+    def __init__(self, verb_state, adj_state, form_state, formality_state, tense_state, polarity_state, easy_mode, kanji_mode):
         self.verb_state = verb_state
         self.adj_state = adj_state
         self.form_state = form_state
+        self.formality_state = formality_state
         self.tense_state = tense_state
         self.polarity_state = polarity_state
         self.easy_mode = easy_mode
@@ -44,14 +43,15 @@ class SettingsState(object):
 
     def __repr__(self):
         return "Verbs = {}\nAdjectives = {}\nForms = {}\nTense = {}\nPolarity = {}\nEasy Mode = {}\nKanij Mode = {}".format(
-                    self.verb_state, self.adj_state, self.form_state,
-                    self.tense_state, self. polarity_state, self.easy_mode, self.kanji_mode)
+                    self.verb_state, self.adj_state, self.form_state, self.formality_state,
+                    self.tense_state, self.polarity_state, self.easy_mode, self.kanji_mode)
 
 class QuizData(object):
-    def __init__(self, verb_list, adj_list, forms, tenses, polarities, easy_mode, kanji_mode):
+    def __init__(self, verb_list, adj_list, forms, formalities, tenses, polarities, easy_mode, kanji_mode):
         self.verb_list = verb_list
         self.adj_list = adj_list
         self.forms = forms
+        self.formalities = formalities
         self.tenses = tenses
         self.polarities = polarities
         self.easy_mode = easy_mode
@@ -119,7 +119,18 @@ class SettingsDialog(QDialog):
             form_box_layout.addWidget(checkbox)
         form_box = QGroupBox("Form")
         form_box.setLayout(form_box_layout)
-        options_layout.addWidget(form_box, 0, 2)
+        options_layout.addWidget(form_box, 0, 2, -1, 1)
+
+        formality_box_layout = QVBoxLayout()
+        self.formality_checkboxes = []
+        for formality in ["Polite", "Casual"]:
+            checkbox = QCheckBox(formality)
+            checkbox.name = formality  # Might break things
+            self.formality_checkboxes.append(checkbox)
+            formality_box_layout.addWidget(checkbox)
+        formality_box = QGroupBox("Formality")
+        formality_box.setLayout(formality_box_layout)
+        options_layout.addWidget(formality_box, 0, 3)
 
         tense_box_layout = QVBoxLayout()
         self.tense_checkboxes = []
@@ -130,7 +141,7 @@ class SettingsDialog(QDialog):
             tense_box_layout.addWidget(checkbox)
         tense_box = QGroupBox("Tense")
         tense_box.setLayout(tense_box_layout)
-        options_layout.addWidget(tense_box, 1, 2)
+        options_layout.addWidget(tense_box, 1, 3)
 
         polarity_box_layout = QVBoxLayout()
         self.polarity_checkboxes = []
@@ -141,7 +152,7 @@ class SettingsDialog(QDialog):
             polarity_box_layout.addWidget(checkbox)
         polarity_box = QGroupBox("Polarity")
         polarity_box.setLayout(polarity_box_layout)
-        options_layout.addWidget(polarity_box, 2, 2)
+        options_layout.addWidget(polarity_box, 2, 3)
 
         options_box = QGroupBox()
         options_box.setLayout(options_layout)
@@ -218,14 +229,15 @@ class SettingsDialog(QDialog):
             verb_state = [True] * len(self.verb_checkboxes)
             adj_state = [True] * len(self.adj_checkboxes)
             form_state = [True] * len(self.form_checkboxes)
+            formality_state = [True] * len(self.formality_checkboxes)
             tense_state = [True] * len(self.tense_checkboxes)
             polarity_state = [True] * len(self.polarity_checkboxes)
             easy_mode = False
             kanji_mode = False
             self.settings_state = SettingsState(verb_state, adj_state,
-                                                form_state, tense_state,
-                                                polarity_state, easy_mode,
-                                                kanji_mode)
+                                                form_state, formality_state,
+                                                tense_state, polarity_state,
+                                                easy_mode, kanji_mode)
 
         self.applySettingsFromState()
 
@@ -236,6 +248,8 @@ class SettingsDialog(QDialog):
             self.adj_checkboxes[i].setChecked(self.settings_state.adj_state[i])
         for i in range(len(self.form_checkboxes)):
             self.form_checkboxes[i].setChecked(self.settings_state.form_state[i])
+        for i in range(len(self.formality_checkboxes)):
+            self.formality_checkboxes[i].setChecked(self.settings_state.formality_state[i])
         for i in range(len(self.tense_checkboxes)):
             self.tense_checkboxes[i].setChecked(self.settings_state.tense_state[i])
         for i in range(len(self.polarity_checkboxes)):
@@ -250,6 +264,8 @@ class SettingsDialog(QDialog):
             self.settings_state.adj_state[i] = self.adj_checkboxes[i].isChecked()
         for i in range(len(self.form_checkboxes)):
             self.settings_state.form_state[i] = self.form_checkboxes[i].isChecked()
+        for i in range(len(self.formality_checkboxes)):
+            self.settings_state.formality_state[i] = self.formality_checkboxes[i].isChecked()
         for i in range(len(self.tense_checkboxes)):
             self.settings_state.tense_state[i] = self.tense_checkboxes[i].isChecked()
         for i in range(len(self.polarity_checkboxes)):
@@ -271,6 +287,7 @@ class SettingsDialog(QDialog):
 
         tense_required = False
         polarity_required = False
+        formality_required = False
         form_selected = False
         for checkbox in self.form_checkboxes:
             form_selected = form_selected or checkbox.isChecked()
@@ -278,6 +295,8 @@ class SettingsDialog(QDialog):
                 tense_required = True
             if checkbox.isChecked() and globals()[checkbox.name].isPolarised():
                 polarity_required = True
+            if checkbox.isChecked() and globals()[checkbox.name].hasFormalities():
+                formality_required = True
 
             # Here we are testing whether or not the form managed by this checkbox
             # only addresses a single word group (for example, the potential form
@@ -295,6 +314,10 @@ class SettingsDialog(QDialog):
         if polarity_required:
             for checkbox in self.polarity_checkboxes:
                 polarity_selected = checkbox.isChecked() or polarity_selected
+
+        formality_selected = False
+        for checkbox in self.formality_checkboxes:
+            formality_selected = formality_selected or checkbox.isChecked()
 
         if not form_selected:
             warning = QMessageBox(self)
@@ -315,6 +338,11 @@ class SettingsDialog(QDialog):
             warning = QMessageBox(self)
             warning.setText("Adjective list not selected")
             warning.setInformativeText("One of the forms selected only applies to adjectives, but no adjective lists have been selected.")
+            warning.exec_()
+        elif formality_required and not formality_selected:
+            warning = QMessageBox(self)
+            warning.setText("Conjugation Formality Not Selected")
+            warning.setInformativeText("A formality setting is required for some of the forms selected. Please select at least one formality.")
             warning.exec_()
         elif (verb_selected or adj_selected) and (not (tense_required ^ tense_selected)) and (not (polarity_required ^ polarity_selected)):
             # Logical negated exclusive or: not (A ^ B)
@@ -341,11 +369,15 @@ class SettingsDialog(QDialog):
         adj_list = load_word_lists(adj_path_list, return_adj=True)
 
         form_list = []
+        formality_list = []
         tense_list = []
         polarity_list = []
         for checkbox in self.form_checkboxes:
             if checkbox.isChecked():
                 form_list.append(checkbox.name)
+        for checkbox in self.formality_checkboxes:
+            if checkbox.isChecked():
+                formality_list.append(checkbox.name)
         for checkbox in self.tense_checkboxes:
             if checkbox.isChecked():
                 tense_list.append(checkbox.name)
@@ -353,7 +385,7 @@ class SettingsDialog(QDialog):
             if checkbox.isChecked():
                 polarity_list.append(checkbox.name)
 
-        return QuizData(verb_list, adj_list, form_list, tense_list, polarity_list,
+        return QuizData(verb_list, adj_list, form_list, formality_list, tense_list, polarity_list,
                         self.settings_state.easy_mode, self.settings_state.kanji_mode)
 
 
@@ -392,6 +424,10 @@ class QuizWidget(QWidget):
         self.response.setFont(response_font)
         self.response.setAlignment(Qt.AlignHCenter)
 
+        # self.question_debug = QLabel("")  # DEBUG
+        # self.question_debug.setFont(response_font)  # DEBUG
+        # self.question_debug.setAlignment(Qt.AlignHCenter)  # DEBUG
+
         submit = QPushButton("Submit", self)
         submit.clicked.connect(self.submitAnswer)
 
@@ -405,7 +441,8 @@ class QuizWidget(QWidget):
 
         grid.addWidget(self.question, 1, 1, 1, 2)  # row, column, rowspan, columnspan
         grid.addWidget(self.answer, 2, 1)
-        grid.addWidget(self.response, 3, 1, 1, 2)
+        # grid.addWidget(self.question_debug, 3, 1, 1, 2)  # DEBUG
+        grid.addWidget(self.response, 4, 1, 1, 2)
         grid.addWidget(submit, 2, 2)
 
         self.setLayout(grid)
@@ -437,6 +474,10 @@ class QuizWidget(QWidget):
 
         word = word_list[random.randint(0, len(word_list) - 1)]
 
+        if len(self.quiz_data.formalities) != 0:
+            formality = self.quiz_data.formalities[random.randint(0, len(self.quiz_data.formalities) - 1)].lower()
+        else:
+            formality = ""
         if len(self.quiz_data.tenses) != 0:
             tense = self.quiz_data.tenses[random.randint(0, len(self.quiz_data.tenses) - 1)].lower()
         else:
@@ -449,9 +490,11 @@ class QuizWidget(QWidget):
         # Dirty hack to get the answer with and without Kanji.
         # Having answer_string0 as the inverse of "using_kanji" means that the
         # final state of the "question_string" variable is always correct.
-        question_string, answer_string0 = globals()[form].question(word, form.lower(), tense.lower(), polarity.lower(), self.quiz_data.easy_mode, not self.quiz_data.kanji_mode)
-        question_string, answer_string1 = globals()[form].question(word, form.lower(), tense.lower(), polarity.lower(), self.quiz_data.easy_mode, self.quiz_data.kanji_mode)
+        question_string, answer_string0 = globals()[form].question(word, formality.lower(), tense.lower(), polarity.lower(), self.quiz_data.easy_mode, not self.quiz_data.kanji_mode)
+        question_string, answer_string1 = globals()[form].question(word, formality.lower(), tense.lower(), polarity.lower(), self.quiz_data.easy_mode, self.quiz_data.kanji_mode)
         answer_string = [answer_string0, answer_string1]
+
+        self.question_string = question_string
 
         return question_string, answer_string
 
@@ -469,6 +512,7 @@ class QuizWidget(QWidget):
             # is always in the 1st index of the array.
             answer_string = self.answer_string[1]
             self.response.setText("Incorrect. The answer was \"{}\", you answered \"{}\"".format(answer_string, self.answer.text()))
+            # self.question_debug.setText(self.question_string)  # DEBUG
 
         self.answer.setText("")
         self.displayQuestion()

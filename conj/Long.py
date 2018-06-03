@@ -9,23 +9,26 @@ def toolTip():
 def wordGroups():
     return ["verb", "adjective"]
 
+def hasFormalities():
+    return False
+
 def isTensed():
     return True
 
 def isPolarised():
     return True
 
-def question(word, form, tense, polarity, easy_mode, using_kanji):
+def question(word, formality, tense, polarity, easy_mode, using_kanji):
     if easy_mode:
         question = "What is the long, {}, {} form of \"{}\"? ({})".format(tense, polarity, word.english, word.word_to_conjugate(using_kanji))
     else:
         question = "What is the long, {}, {} form of \"{}\"?".format(tense, polarity, word.english)
 
-    answer = conjugateLong(word, form, tense, polarity, using_kanji)
+    answer = conjugateLong(word, formality, tense, polarity, using_kanji)
 
     return question, answer
 
-def conjugateLong(word, form, tense, polarity, using_kanji=False):
+def conjugateLong(word, formality, tense, polarity, using_kanji=False):
     if isinstance(word, Verb):
         return __verb(word, tense, polarity, using_kanji)
     elif isinstance(word, Adjective):
